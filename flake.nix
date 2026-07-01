@@ -2,6 +2,8 @@
   description = "Unified flake for sure and dwalin";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # This pins afdko to 4.0.2, temp fix for cantarell-fonts not building w afdko 5
+    nixpkgs-afdko.url = "github:nixos/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager/master";
