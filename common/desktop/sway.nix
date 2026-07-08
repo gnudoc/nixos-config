@@ -9,10 +9,10 @@ let
   c = theme.colors;
   idleHandler = pkgs.writeShellScriptBin "swayidle-handler" ''
     ${pkgs.swayidle}/bin/swayidle -w \
-      timeout 300 '${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}' \
+      timeout 300 'pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}' \
       timeout 330 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
       resume '${pkgs.sway}/bin/swaymsg "output * dpms on"' \
-      before-sleep '${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}'
+      before-sleep 'pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}'
   '';
 in
 

@@ -52,7 +52,7 @@
     useRoutingFeatures = "client";
   };
   # This might be needed to supply randomness for wake-from-hibernate
-  services.haveged.enable = true;
+  # services.haveged.enable = true;
 
   nixpkgs.overlays = [
     (final: prev: {
