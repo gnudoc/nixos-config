@@ -44,6 +44,10 @@
   boot.initrd.systemd.tpm2.enable = false;
 
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
+  boot.kernelParams = [
+    "i915.enable_psr=0"
+    "random.trust_cpu=on"
+  ];
 
   networking.hostName = "dwalin";
 
