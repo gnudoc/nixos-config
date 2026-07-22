@@ -55,6 +55,7 @@
       epkgs.nodejs-repl
       epkgs.nix-mode
       epkgs.auctex
+      epkgs.haskell-mode
       # --- Project, Git ---
       epkgs.projectile
       epkgs.consult-projectile
