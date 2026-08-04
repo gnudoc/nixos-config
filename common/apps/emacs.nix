@@ -69,6 +69,7 @@
       # --- Environment Integration ---
       epkgs.envrc
       epkgs.inheritenv
+      epkgs.exec-path-from-shell
     ];
   };
 
