@@ -60,7 +60,8 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      cantarell-fonts = inputs.nixpkgs-afdko.legacyPackages.${prev.system}.cantarell-fonts;
+      cantarell-fonts =
+        inputs.nixpkgs-afdko.legacyPackages.${prev.stdenv.hostPlatform.system}.cantarell-fonts;
     })
   ];
 }
