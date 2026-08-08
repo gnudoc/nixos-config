@@ -70,6 +70,11 @@
       epkgs.envrc
       epkgs.inheritenv
       epkgs.exec-path-from-shell
+      # --- Make eshell awesome ---
+      epkgs.eshell-syntax-highlighting
+      epkgs.esh-autosuggest
+      epkgs.eshell-z
+      #epkgs.eat # could throw to it from eshell when a terminal is needed, could be nice if we can get it working
     ];
   };
 
