@@ -10,6 +10,7 @@
     python3
     emacs-all-the-icons-fonts
     nerd-fonts.symbols-only # doom-modeline wants nerd-icons, which wants symbols-only
+    dtach
   ];
 
   programs.emacs = {
@@ -70,6 +71,7 @@
       epkgs.envrc
       epkgs.inheritenv
       epkgs.exec-path-from-shell
+      epkgs.detached
       # --- Make eshell awesome ---
       epkgs.eshell-syntax-highlighting
       epkgs.esh-autosuggest
