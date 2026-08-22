@@ -4,7 +4,7 @@
   imports = [
     ./apps/brave.nix
     ./apps/chromium.nix
-    ./apps/clion.nix
+    #    ./apps/clion.nix
     ./apps/emacs.nix
     ./apps/foot.nix
     ./cli/backup.nix
