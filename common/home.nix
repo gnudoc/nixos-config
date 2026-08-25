@@ -13,6 +13,7 @@
     ./cli/vim.nix
     ./cli/zsh.nix
     ./desktop/gtk.nix
+    ./desktop/mako.nix
     ./desktop/rofi.nix
     ./desktop/sway.nix
     ./desktop/waybar.nix
