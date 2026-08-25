@@ -137,6 +137,8 @@ in
         "${modifier}+g" = "exec emacsclient -c -e '(magit-status)' -a \"\"";
         "${modifier}+e" = "exec emacsclient -c -e \"(scratch-buffer)\"";
         "${modifier}+s" = "exec rofi -show p -modi p:rofi-power-menu";
+        "${modifier}+Shift+e" =
+          "exec systemctl --user restart emacs.service && ${pkgs.libnotify}/bin/notify-send 'Emacs' 'Daemon restarted successfully' || ${pkgs.libnotify}/bin/notify-send -u critical 'Emacs' 'Failed to restart daemon'";
 
         "XF86AudioRaiseVolume" =
           "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ 0 && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
