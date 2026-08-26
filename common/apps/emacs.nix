@@ -11,6 +11,7 @@
     emacs-all-the-icons-fonts
     nerd-fonts.symbols-only # doom-modeline wants nerd-icons, which wants symbols-only
     dtach
+    curl
   ];
 
   programs.emacs = {
@@ -67,6 +68,9 @@
       # --- Dired ---
       epkgs.all-the-icons-dired
       epkgs.dired-hide-dotfiles
+      # --- RSS ---
+      epkgs.elfeed
+      epkgs.elfeed-protocol
       # --- Environment Integration ---
       epkgs.envrc
       epkgs.inheritenv
