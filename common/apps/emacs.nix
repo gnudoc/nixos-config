@@ -21,6 +21,7 @@
       # --- Compiled ---
       epkgs.treesit-grammars.with-all-grammars
       epkgs.vterm
+      epkgs.ghostel
       epkgs.pdf-tools
       # --- System/Core stuff ---
       epkgs.no-littering
