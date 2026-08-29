@@ -6,13 +6,14 @@ in
 {
   services.mako = {
     enable = true;
-    font = "Noto Sans 10";
-    backgroundColor = "#${c.bg}f2";
-    textColor = "#${c.fg}";
-    borderColor = "#${c.cyan}";
-    progressColor = "over #${c.green}";
-    defaultTimeout = 5000;
-
+    settings = {
+      font = "Noto Sans 10";
+      background-color = "#${c.bg}f2";
+      text-color = "#${c.fg}";
+      border-color = "#${c.cyan}";
+      progress-color = "over #${c.green}";
+      default-timeout = 5000;
+    };
     extraConfig = ''
       [urgency=critical]
       border-color=#${c.red}
