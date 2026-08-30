@@ -27,6 +27,10 @@
       epkgs.no-littering
       epkgs.gcmh
       epkgs.bluetooth
+      epkgs.daemons # a nice interface for systemctl
+      epkgs.journalctl-mode # a nice interface for journalctl
+      epkgs.nixos-options
+      epkgs.nix-update
       # --- UI & Theming ---
       epkgs.doom-themes
       epkgs.doom-modeline
