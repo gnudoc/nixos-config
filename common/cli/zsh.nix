@@ -37,14 +37,17 @@
       setopt beep notify
       unsetopt nomatch
       bindkey -e
+      # Ghostel handles its own prompt tracking etc, but vterm needs some help with
+      # shell integration
       if [[ "$INSIDE_EMACS" = 'vterm' ]] && [[ -n ''${EMACS_VTERM_PATH} ]]; then
           if [[ -f ''${EMACS_VTERM_PATH}/etc/vterm.zsh ]]; then
               source ''${EMACS_VTERM_PATH}/etc/vterm.zsh
           fi
       fi
+
       if [[ -n $SSH_CONNECTION ]]; then
         export EDITOR='vim'
-      elif [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+      elif [[ "$INSIDE_EMACS" = 'vterm' ]] || [[ "$INSIDE_EMACS" = 'ghostel' ]]; then
         export EDITOR='emacsclient'
       else
         export EDITOR='emacsclient -c'
@@ -52,18 +55,24 @@
       fi
       alias -g G="| grep"
       alias -g L="| less"
+
       if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
         alias ff='vterm_cmd find-file'
         alias vd='vterm_cmd dired "$(pwd)"'
         alias mag='vterm_cmd magit-status "$(pwd)"'
-        alias -s org='emacsclient -n'
-        alias -s txt='emacsclient -n'
-        alias -s md='emacsclient -n'
-      else
-        alias -s org='emacsclient -c'
-        alias -s txt='emacsclient -c'
-        alias -s md='emacsclient -c'
+      elif [[ "$INSIDE_EMACS" = 'ghostel' ]]; then
+        alias ff='ghostel_cmd find-file'
+        alias vd='ghostel_cmd dired "$(pwd)"'
+        alias mag='ghostel_cmd magit-status "$(pwd)"'
+        # Ghostel-specific:
+        alias ffo='ghostel_cmd find-file-other-window'
+        alias vdo='ghostel_cmd dired-other-window "$(pwd)"'
+        alias rgrep='ghostel_cmd consult-ripgrep'
+        alias pff='ghostel_cmd consult-projectile'
       fi
+      alias -s org='emacsclient -c'
+      alias -s txt='emacsclient -c'
+      alias -s md='emacsclient -c'
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey '\ee' edit-command-line

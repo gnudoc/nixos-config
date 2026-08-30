@@ -31,7 +31,7 @@ in
     config = rec {
       modifier = "Mod4";
       bars = [ ]; # disable sway's bar
-      terminal = "emacsclient -c -e \"(vterm)\" -a \"\"";
+      terminal = "emacsclient -c -F '((name . ghostel-term))' -e \"(nij/ghostel-new)\" -a \"\"";
       menu = "rofi -show combi -modes combi -combi-modes \"window,drun,ssh\"";
       fonts = {
         names = [ "Noto Sans" ];
