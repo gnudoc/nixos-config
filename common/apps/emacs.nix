@@ -89,9 +89,14 @@
     ];
   };
 
+  # for home manager to make the emacs systemd unit
   services.emacs = {
     enable = true;
     client.enable = true;
     defaultEditor = true;
+  };
+  # inject a custom line into the [Service] line of the home manager derived unit
+  systemd.user.services.emacs.Service = {
+    Environment = "GDK_BACKEND=wayland";
   };
 }
