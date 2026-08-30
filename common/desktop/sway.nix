@@ -133,9 +133,10 @@ in
         "${modifier}+Shift+Tab" = "layout toggle split";
         "${modifier}+w" = "exec pkill waybar";
         "${modifier}+Return" = "exec ${terminal}";
-        "${modifier}+d" = "exec emacsclient -c -e \"(call-interactively 'dired)\" -a \"\"";
-        "${modifier}+g" = "exec emacsclient -c -e '(magit-status)' -a \"\"";
-        "${modifier}+e" = "exec emacsclient -c -e \"(scratch-buffer)\"";
+        "${modifier}+d" =
+          "exec emacsclient -c -F '((name . dired))' -e \"(call-interactively 'dired)\" -a \"\"";
+        "${modifier}+g" = "exec emacsclient -c -F '((name . magit))' -e '(magit-status)' -a \"\"";
+        "${modifier}+e" = "exec emacsclient -c -F '((name . emacs))' -e \"(scratch-buffer)\"";
         "${modifier}+s" = "exec rofi -show p -modi p:rofi-power-menu";
         "${modifier}+Shift+e" =
           "exec systemctl --user restart emacs.service && ${pkgs.libnotify}/bin/notify-send 'Emacs' 'Daemon restarted successfully' || ${pkgs.libnotify}/bin/notify-send -u critical 'Emacs' 'Failed to restart daemon'";
