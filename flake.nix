@@ -78,6 +78,16 @@
             nixos-hardware.nixosModules.common-pc-laptop
           ];
         };
+        galvorn = mkSystem {
+          hostname = "galvorn";
+          backupHost = "ssh-nas-backup";
+          tunnelAlias = "my-proxy-tunnel";
+          extraModules = [
+            nixos-hardware.nixosModules.common-cpu-intel
+            nixos-hardware.nixosModules.common-pc-laptop
+            nixos-hardware.nixosModules.common-pc-ssd
+          ];
+        };
       };
     };
 }
