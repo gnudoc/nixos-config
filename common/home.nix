@@ -8,7 +8,6 @@
     ./apps/foot.nix
     ./cli/backup.nix
     ./cli/battery.nix
-    ./cli/cantarell-check.nix
     ./cli/git.nix
     ./cli/vim.nix
     ./cli/zsh.nix

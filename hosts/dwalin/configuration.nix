@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -57,11 +57,4 @@
   };
   # This might be needed to supply randomness for wake-from-hibernate
   # services.haveged.enable = true;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      cantarell-fonts =
-        inputs.nixpkgs-afdko.legacyPackages.${prev.stdenv.hostPlatform.system}.cantarell-fonts;
-    })
-  ];
 }
