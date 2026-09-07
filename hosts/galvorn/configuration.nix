@@ -25,6 +25,8 @@
     ];
   };
 
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
   age.secrets = {
     eduroam.file = ../../secrets/eduroam.env.age;
     wifi.file = ../../secrets/wifi.env.age;
