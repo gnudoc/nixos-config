@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    agenix.url = "github:ryantm/agenix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs"; # keeps system and h-m in line
@@ -14,6 +15,7 @@
       nixpkgs,
       nixos-hardware,
       home-manager,
+      agenix,
       ...
     }@inputs:
     let
@@ -40,6 +42,7 @@
               ;
           };
           modules = [
+            agenix.nixosModules.default
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {
