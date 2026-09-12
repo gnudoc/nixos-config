@@ -35,10 +35,13 @@ The environment is designed around a keyboard-driven Wayland workflow:
 
 ## Secrets & Local Config
 
-To maintain a secure public repo, sensitive infrastructure details (e.g. SSH endpoints and keys) are excluded from tracking. These are loaded locally via Git and SSH includes:
-* `~/.ssh/config.local`
-* `~/.config/git/config.local`
-Maybe I should be using sops-nix or age-nix for these secrets, but those felt like a bit of overkill. I may yet do so.
+I've started trying out age-nix for secrets such as wifi credentials, my .authinfo file, SSH config.
+Adding more secrets involves:
+* add a rule to `secrets/secrets.nix` eg "top_secret.age".publicKeys = [key1 key2];
+* `nix run github:ryantm/agenix -- -e top_secret.age` - paste the config file to be secret-ised
+* add something to configuration.nix eg `age.secrets.top_secret.file = ../../secrets/top_secret.age`
+* ensure the bit of home manager config that would've configured the top_secret.conf now has `includes = ["/run/secrets/top_secret"]`
+* done
 
 ## Backups & Storage
 

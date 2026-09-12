@@ -30,6 +30,14 @@
   age.secrets = {
     eduroam.file = ../../secrets/eduroam.env.age;
     wifi.file = ../../secrets/wifi.env.age;
+    authinfo = {
+      file = ../../secrets/authinfo.age;
+      owner = "nij";
+    };
+    ssh_config = {
+      file = ../../secrets/ssh_config.age;
+      owner = "nij";
+    };
   };
 
   networking.networkmanager.ensureProfiles = {

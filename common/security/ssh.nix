@@ -11,8 +11,9 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    # This include is so that we don't have infrastruc details on public gh
-    includes = [ "~/.ssh/config.local" ];
+    # This include is so that the public repo has infrastructure details
+    # secured by age-nix
+    includes = [ "/run/secrets/ssh_config" ];
     settings = {
       "*" = {
         ServerAliveInterval = 30;

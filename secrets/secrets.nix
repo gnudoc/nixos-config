@@ -11,4 +11,12 @@ in
     nij
     galvorn
   ];
+  "authinfo.age".publicKeys = [
+    nij
+    galvorn
+  ];
+  "ssh_config.age".publicKeys = [
+    nij
+    galvorn
+  ];
 }
