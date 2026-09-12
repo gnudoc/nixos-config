@@ -43,3 +43,5 @@ Maybe I should be using sops-nix or age-nix for these secrets, but those felt li
 ## Backups & Storage
 
 The systems utilize `btrfs` with subvolumes `@`, `@home`, `@nix`. Most of $HOME and specifically defined critical configs are automatically sync'd to a server via `rsync` using a systemd timer.
+
+I wonder whether I should be using disko to declare the disk partitions and subvolumes?
