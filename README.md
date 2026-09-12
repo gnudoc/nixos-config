@@ -4,9 +4,10 @@ This repo contains a unified, declarative system config using [NixOS](https://ni
 
 ## Hosts
 
-Currently, this flake provisions two machines:
+Currently, this flake provisions three machines:
 * **`dwalin`**: Dell XPS 13 9300
 * **`sure`**: Intel/Nvidia hybrid laptop configured with PRIME offloading
+* **`galvorn`**: A StarLabs Starfighter laptop
 
 ## Tech Stack & Environment
 
