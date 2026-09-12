@@ -11,7 +11,7 @@ writeShellApplication {
     coreutils
   ];
   text = ''
-    RESTRICTED_PATHS=("/var/lib/bluetooth/" "/etc/NetworkManager/system-connections/" "/etc/ssh/ssh_host_ed25519_key/")
+    RESTRICTED_PATHS=("/var/lib/bluetooth/" "/etc/NetworkManager/system-connections/" "/etc/ssh/")
     PATHS_TO_BACKUP=()
     for path in "''${RESTRICTED_PATHS[@]}"; do
         if [ -e "$path" ]; then
