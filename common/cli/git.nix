@@ -4,22 +4,18 @@
   programs.git = {
     enable = true;
 
-    userName = "Aijaz Mohammad";
-    userEmail = "20248043+gnudoc@users.noreply.github.com";
-
     settings = {
       core.autocrlf = "input";
       github.user = "gnudoc";
+      user.name = "Aijaz Mohammad";
+      user.email = "20248043+gnudoc@users.noreply.github.com";
+      gpg.format = "ssh";
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
     };
 
     signing = {
       signByDefault = true;
       key = "~/.ssh/id_ed25519";
-    };
-
-    extraConfig = {
-      gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
     };
   };
   home.file.".ssh/allowed_signers".text = ''
