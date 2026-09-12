@@ -40,7 +40,7 @@ Adding more secrets involves:
 * add a rule to `secrets/secrets.nix` eg "top_secret.age".publicKeys = [key1 key2];
 * `nix run github:ryantm/agenix -- -e top_secret.age` - paste the config file to be secret-ised
 * add something to configuration.nix eg `age.secrets.top_secret.file = ../../secrets/top_secret.age`
-* ensure the bit of home manager config that would've configured the top_secret.conf now has `includes = ["/run/secrets/top_secret"]`
+* ensure the bit of home manager config that would've configured the top_secret.conf now has `includes = ["/run/agenix/top_secret"]`
 * done
 
 ## Backups & Storage

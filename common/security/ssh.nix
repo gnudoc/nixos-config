@@ -13,7 +13,7 @@
     enableDefaultConfig = false;
     # This include is so that the public repo has infrastructure details
     # secured by age-nix
-    includes = [ "/run/secrets/ssh_config" ];
+    includes = [ "/run/agenix/ssh_config" ];
     settings = {
       "*" = {
         ServerAliveInterval = 30;
