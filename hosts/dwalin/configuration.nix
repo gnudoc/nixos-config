@@ -52,8 +52,8 @@
   networking.hostName = "dwalin";
 
   services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "client";
+    #enable = true;
+    #useRoutingFeatures = "client";
   };
   # This might be needed to supply randomness for wake-from-hibernate
   # services.haveged.enable = true;

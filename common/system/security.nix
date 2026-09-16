@@ -34,4 +34,16 @@ in
     }
   ];
 
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+  age.secrets = {
+    authinfo = {
+      file = ../../secrets/authinfo.age;
+      owner = "nij";
+    };
+    ssh_config = {
+      file = ../../secrets/ssh_config.age;
+      owner = "nij";
+    };
+  };
 }
