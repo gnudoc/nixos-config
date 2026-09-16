@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -20,7 +20,6 @@
 
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
-  ### --- CHANGE ON A NEW SYSTEM --- ###
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;

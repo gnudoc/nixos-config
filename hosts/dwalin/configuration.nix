@@ -13,26 +13,7 @@
 
   environment.systemPackages = [
     pkgs.vlc
-    #pkgs.handbrake
-    #pkgs.dvdbackup
   ];
-
-  # override these libs with versions that include decryption support
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     libdvdread = prev.libdvdread.override {
-  #       libdvdcss = prev.libdvdcss;
-  #     };
-
-  #     libbluray = prev.libbluray.override {
-  #       withAACS = true;
-  #       withBDplus = true;
-  #     };
-  #   })
-  # ];
-
-  # external optical drives need SCSI Generic module
-  # boot.kernelModules = [ "sg" ];
 
   # avoid the 90second startup wait for TPM
   boot.blacklistedKernelModules = [
@@ -55,6 +36,4 @@
     #enable = true;
     #useRoutingFeatures = "client";
   };
-  # This might be needed to supply randomness for wake-from-hibernate
-  # services.haveged.enable = true;
 }
