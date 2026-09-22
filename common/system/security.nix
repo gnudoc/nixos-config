@@ -39,11 +39,11 @@ in
   age.secrets = {
     authinfo = {
       file = ../../secrets/authinfo.age;
-      owner = "nij";
+      owner = user;
     };
     ssh_config = {
       file = ../../secrets/ssh_config.age;
-      owner = "nij";
+      owner = user;
     };
   };
 }
