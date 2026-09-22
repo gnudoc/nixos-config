@@ -19,6 +19,10 @@ in
     nij
     galvorn
   ];
+  "tailscale.age".publicKeys = [
+    nij
+    galvorn
+  ];
   ## At some point it'll be worth setting up wireguard access to protonvpn/nordvpn etc instead of the
   ## browser extensions, and the wireguard credentials would be encrypted by age as well
 }

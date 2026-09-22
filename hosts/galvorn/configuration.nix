@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -14,8 +14,10 @@
 
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
+  age.secrets.tailscale.file = ../../secrets/tailscale.age;
+
   services.tailscale = {
-    authKeyFile = "/root/secrets/galvorn_tailscale_key";
+    authKeyFile = config.age.secrets.tailscale.path;
     extraUpFlags = [
       "--exit-node=100.84.16.46"
       "--exit-node-allow-lan-access=true"
