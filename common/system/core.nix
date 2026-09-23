@@ -55,6 +55,7 @@ in
     pkgs.psmisc
     pkgs.lsof
     pkgs.btop
+    pkgs.acpi
 
     # The preparatory script for the backup system
     backupPrepare

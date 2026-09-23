@@ -6,7 +6,6 @@
     ./apps/emacs.nix
     ./apps/foot.nix
     ./cli/backup.nix
-    ./cli/battery.nix
     ./cli/git.nix
     ./cli/vim.nix
     ./cli/zsh.nix

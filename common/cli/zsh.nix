@@ -14,6 +14,7 @@
       extended = true; # timestamps
     };
     shellAliases = {
+      bat = "acpi -V";
       btc = "bluetoothctl";
       proxsh = "ssh -D 1080 ${tunnelAlias}";
       ls = "ls --color=auto -F";
