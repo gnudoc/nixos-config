@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./apps/brave.nix
     ./apps/chromium.nix
     ./apps/emacs.nix
     ./apps/foot.nix

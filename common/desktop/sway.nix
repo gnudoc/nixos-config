@@ -88,12 +88,6 @@ in
               app_id = "chromium";
             };
           }
-          {
-            command = "opacity 0.99";
-            criteria = {
-              app_id = "brave-browser";
-            };
-          }
         ];
       };
       floating = {
@@ -125,7 +119,6 @@ in
       keybindings = lib.mkOptionDefault {
         "${modifier}+Escape" = "exec swaylock -f -c ${c.bg}";
         "${modifier}+b" = "exec chromium";
-        "${modifier}+Shift+b" = "exec brave";
         "${modifier}+r" = "exec ${menu}";
         "${modifier}+q" = "kill";
         "${modifier}+m" = "exec swaymsg exit";
