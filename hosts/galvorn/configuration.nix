@@ -2,12 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../common/system/boot.nix
-    ../../common/system/networking.nix
-    ../../common/system/desktop.nix
-    ../../common/system/security.nix
-    ../../common/system/nix.nix
-    ../../common/system/core.nix
+    ../../common/system
   ];
 
   networking.hostName = hostname;

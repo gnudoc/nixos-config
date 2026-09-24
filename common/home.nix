@@ -2,21 +2,10 @@
 
 {
   imports = [
-    ./apps/chromium.nix
-    ./apps/emacs.nix
-    ./apps/foot.nix
-    ./cli/backup.nix
-    ./cli/git.nix
-    ./cli/vim.nix
-    ./cli/zsh.nix
-    ./desktop/gtk.nix
-    ./desktop/mako.nix
-    ./desktop/rofi.nix
-    ./desktop/sway.nix
-    ./desktop/waybar.nix
-    ./desktop/wpaperd.nix
-    ./security/gpg.nix
-    ./security/ssh.nix
+    ./apps
+    ./cli
+    ./desktop
+    ./security
   ];
   home.username = user;
   home.homeDirectory = "/home/${user}";
