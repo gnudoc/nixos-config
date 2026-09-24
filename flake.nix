@@ -39,6 +39,7 @@
               user
               backupHost
               tunnelAlias
+              hostname
               ;
           };
           modules = [

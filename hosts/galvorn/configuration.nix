@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, hostname, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,7 +10,7 @@
     ../../common/system/core.nix
   ];
 
-  networking.hostName = "galvorn";
+  networking.hostName = hostname;
 
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
 

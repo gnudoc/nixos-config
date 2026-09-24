@@ -1,4 +1,4 @@
-{ ... }:
+{ hostname, ... }:
 
 {
   imports = [
@@ -16,7 +16,7 @@
     "d /mnt/internal-ssd 0755 nij users -"
   ];
 
-  networking.hostName = "sure";
+  networking.hostName = hostname;
 
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
