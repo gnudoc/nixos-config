@@ -7,24 +7,36 @@
 let
   theme = import ../theme.nix;
   c = theme.colors;
-  idleHandler = pkgs.writeShellScriptBin "swayidle-handler" ''
-    ${pkgs.swayidle}/bin/swayidle -w \
-      timeout 300 'pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}' \
-      timeout 330 '${pkgs.sway}/bin/swaymsg "output * dpms off"' \
-      resume '${pkgs.sway}/bin/swaymsg "output * dpms on"' \
-      before-sleep 'pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}'
-  '';
 in
-
 {
   home.packages = with pkgs; [
     swaylock
-    swayidle
     grim
     slurp
     wl-clipboard
     brightnessctl
   ];
+  services.swayidle = {
+    enable = true;
+    events = [
+      {
+        event = "before-sleep";
+        command = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
+      }
+    ];
+    timeouts = [
+      {
+        timeout = 300;
+        command = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
+      }
+      {
+        timeout = 330;
+        command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
+        resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+      }
+    ];
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     checkConfig = false;
@@ -111,9 +123,6 @@ in
         }
         {
           command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP SSH_AUTH_SOCK";
-        }
-        {
-          command = "${idleHandler}/bin/swayidle-handler";
         }
       ];
       keybindings = lib.mkOptionDefault {
