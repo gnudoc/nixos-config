@@ -19,4 +19,14 @@
       "--operator=nij"
     ];
   };
+
+  # This lets libinput know that the laptop keyboard is internal, not external,
+  # even though it's on a different bus from the trackpad, so that
+  # "Disable-While-Typing" works
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Starfighter Keyboard]
+    MatchUdevType=keyboard
+    MatchName=AT Translated Set 2 keyboard
+    AttrKeyboardIntegration=internal
+  '';
 }
