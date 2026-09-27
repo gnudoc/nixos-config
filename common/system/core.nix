@@ -61,6 +61,7 @@ in
     backupPrepare
   ];
 
-  services.fstrim.enable = true;
+  # no need for this as discard=async on the hardware-conf's implies this
+  # services.fstrim.enable = true;
 
 }

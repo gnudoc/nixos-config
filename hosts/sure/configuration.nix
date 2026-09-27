@@ -13,7 +13,7 @@
 
   networking.hostName = hostname;
 
-  boot.resumeDevice = "/dev/disk/by-label/SWAP";
+  boot.resumeDevice = "/dev/disk/by-uuid/e7336446-3fa2-44d3-b5af-e2d2a2277920"; # swap partition
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
