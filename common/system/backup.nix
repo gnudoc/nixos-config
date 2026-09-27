@@ -6,7 +6,6 @@
   ...
 }:
 let
-  destDataset = "main-pool/${config.networking.hostName}-backup";
   markerFile = "/home/${user}/.local/state/last_backup";
   excludes = pkgs.writeText "backup-excludes.txt" ''
     .cache/
@@ -36,6 +35,9 @@ let
         /etc/NetworkManager/system-connections /etc/ssh || true
       chown ${user}:users "$TARGET_ARCHIVE"
       chmod 600 "$TARGET_ARCHIVE"
+      # Note: The remote authorized_keys uses `rrsync` to force the destination
+      # to `/mnt/main-pool/${config.networking.hostName}-backup/home/`. 
+      # Targeting `:/` here is expected; the NAS jail handles the routing.
       echo "Syncing ~${user} to ${backupHost}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
         -e ssh "/home/${user}/" "${backupHost}:/"
