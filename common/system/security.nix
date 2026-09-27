@@ -1,7 +1,4 @@
 { pkgs, user, ... }:
-let
-  backupPrepare = pkgs.callPackage ../cli/backup-prepare.nix { };
-in
 
 {
   security.pam.services.swaylock = { };
@@ -20,19 +17,6 @@ in
       TimeoutStopSec = 10;
     };
   };
-
-  # Grant passwordless sudo specifically for this generated binary
-  security.sudo.extraRules = [
-    {
-      users = [ user ];
-      commands = [
-        {
-          command = "${backupPrepare}/bin/laptop-backup-prepare";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
 
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 

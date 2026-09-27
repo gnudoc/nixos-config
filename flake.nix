@@ -24,7 +24,7 @@
           hostname,
           system ? "x86_64-linux",
           extraModules ? [ ],
-          backupHost ? "ssh-nas-backup",
+          backupHost ? "girion-tailscale",
           tunnelAlias ? "ssh-nas-tunnel",
         }:
         let
@@ -67,8 +67,8 @@
       nixosConfigurations = {
         sure = mkSystem {
           hostname = "sure";
-          backupHost = "ssh-nas-backup";
-          tunnelAlias = "my-proxy-tunnel";
+          backupHost = "girion-tailscale";
+          tunnelAlias = "ssh-nas-tunnel";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
@@ -76,8 +76,8 @@
         };
         galvorn = mkSystem {
           hostname = "galvorn";
-          backupHost = "ssh-nas-backup";
-          tunnelAlias = "my-proxy-tunnel";
+          backupHost = "girion-tailscale";
+          tunnelAlias = "ssh-nas-tunnel";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
