@@ -24,10 +24,13 @@ in
     nij
     galvorn
   ];
-  "laptop_backup_key.age".publicKeys = [
+  "galvorn_backup_key.age".publicKeys = [
+    nij
+    galvorn
+  ];
+  "sure_backup_key.age".publicKeys = [
     nij
     sure
-    galvorn
   ];
   ## At some point it'll be worth setting up wireguard access to protonvpn/nordvpn etc instead of the
   ## browser extensions, and the wireguard credentials would be encrypted by age as well

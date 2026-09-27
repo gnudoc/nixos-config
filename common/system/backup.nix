@@ -48,13 +48,13 @@ let
 in
 {
   age.secrets.laptop_backup_key = {
-    file = ../../secrets/laptop_backup_key.age;
+    file = ../../secrets/${config.networking.hostName}_backup_key.age;
     mode = "0400";
     owner = "root";
   };
   programs.ssh.extraConfig = ''
     Host ${backupHost}
-      User galvorn_backup
+      User ${config.networking.hostName}_backup
       IdentityFile ${config.age.secrets.laptop_backup_key.path}
       IdentitiesOnly yes
   '';
