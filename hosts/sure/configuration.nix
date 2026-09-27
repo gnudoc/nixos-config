@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ hostname, user, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
 
   # Declaratively ensure the mount point exists with the correct ownership
   systemd.tmpfiles.rules = [
-    "d /mnt/internal-ssd 0755 nij users -"
+    "d /mnt/internal-ssd 0755 ${user} users -"
   ];
 
   networking.hostName = hostname;
