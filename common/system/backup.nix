@@ -41,7 +41,7 @@ let
       echo "Syncing ~${user} to ${backupHost}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
         -e ssh "/home/${user}/" "${backupHost}:/"
-      mkdir -p "$(dirname "${markerFile}")"
+      runuser -u ${user} -- mkdir -p "$(dirname "${markerFile}")"
       chown ${user}:users "$(dirname "${markerFile}")"
       touch "${markerFile}"
       chown ${user}:users "${markerFile}"
