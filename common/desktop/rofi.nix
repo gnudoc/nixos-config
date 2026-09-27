@@ -6,7 +6,7 @@
   programs.rofi = {
     enable = true;
     theme = "Monokai";
-    extraConfig = {
+    settings = {
       modi = "window,drun,ssh,keys,filebrowser,combi";
       "combi-modi" = "window,drun,ssh,keys,filebrowser";
       show = "combi";
