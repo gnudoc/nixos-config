@@ -55,6 +55,7 @@
                   user
                   backupHost
                   tunnelAlias
+                  hostname
                   ;
               };
               home-manager.users.${user} = import ./hosts/${hostname}/home.nix;
