@@ -97,6 +97,6 @@
   };
   # inject a custom line into the [Service] line of the home manager derived unit
   systemd.user.services.emacs.Service = {
-    Environment = "GDK_BACKEND=wayland";
+    Environment = [ "GDK_BACKEND=wayland" ];
   };
 }
