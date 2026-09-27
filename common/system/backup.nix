@@ -25,6 +25,7 @@ let
       pkgs.openssh
       pkgs.coreutils
       pkgs.gnutar
+      pkgs.gzip
     ];
     text = ''
       set -euo pipefail
