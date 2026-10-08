@@ -73,6 +73,8 @@
       # --- Dired ---
       epkgs.all-the-icons-dired
       epkgs.dired-hide-dotfiles
+      # --- Element ---
+      epkgs.ement
       # --- RSS ---
       epkgs.elfeed
       epkgs.elfeed-protocol
