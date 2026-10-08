@@ -25,6 +25,7 @@ let
       pkgs.coreutils
       pkgs.gnutar
       pkgs.gzip
+      pkgs.util-linux
     ];
     text = ''
       set -euo pipefail
