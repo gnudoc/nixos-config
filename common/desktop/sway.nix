@@ -18,12 +18,9 @@ in
   ];
   services.swayidle = {
     enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
-      }
-    ];
+    events = {
+      before-sleep = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
+    };
     timeouts = [
       {
         timeout = 300;
