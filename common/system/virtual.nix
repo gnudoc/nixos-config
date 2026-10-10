@@ -7,20 +7,14 @@
       package = pkgs.qemu_kvm;
       runAsRoot = false;
       swtpm.enable = true;
-      #ovmf.enable = true; # apparently this is available by default now
+      ovmf.enable = true;
     };
   };
 
   programs.virt-manager.enable = true;
 
-  # Lightweight containers, alternative to LXD; needs nftables
-  networking.nftables.enable = true;
+  # Lightweight containers, alternative to LXD
   virtualisation.incus.enable = true;
-  # but the nixos firewall will block dhcp and dns reqs from the containers/VMs
-  networking.firewall.trustedInterfaces = [
-    "incusbr0"
-    "virbr0"
-  ];
 
   # CLI tools for ephemeral VMs
   environment.systemPackages = with pkgs; [
