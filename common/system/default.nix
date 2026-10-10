@@ -9,6 +9,5 @@
     ./networking.nix
     ./nix.nix
     ./security.nix
-    ./virtual.nix
   ];
 }
