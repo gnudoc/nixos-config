@@ -31,8 +31,6 @@ in
       "networkmanager"
       "wheel"
       "cdrom"
-      "libvirtd"
-      "incus-admin"
     ];
     shell = pkgs.zsh;
   };
