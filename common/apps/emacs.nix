@@ -36,6 +36,7 @@
       epkgs.doom-modeline
       epkgs.all-the-icons
       epkgs.nerd-icons
+      epkgs.nerd-icons-dired
       epkgs.rainbow-delimiters
       # --- Minibuffer, Completion ---
       epkgs.vertico
