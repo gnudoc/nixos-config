@@ -8,8 +8,7 @@
     nixd
     nixfmt
     python3
-    emacs-all-the-icons-fonts
-    nerd-fonts.symbols-only # doom-modeline wants nerd-icons, which wants symbols-only
+    nerd-fonts.symbols-only # wanted by nerd-icons
     dtach
     curl
   ];
@@ -20,7 +19,6 @@
     extraPackages = epkgs: [
       # --- Compiled ---
       epkgs.treesit-grammars.with-all-grammars
-      epkgs.vterm
       epkgs.ghostel
       epkgs.pdf-tools
       # --- System/Core stuff ---
@@ -29,12 +27,9 @@
       epkgs.bluetooth
       epkgs.daemons # a nice interface for systemctl
       epkgs.journalctl-mode # a nice interface for journalctl
-      epkgs.nixos-options
-      epkgs.nix-update
       # --- UI & Theming ---
       epkgs.doom-themes
       epkgs.doom-modeline
-      epkgs.all-the-icons
       epkgs.nerd-icons
       epkgs.nerd-icons-dired
       epkgs.rainbow-delimiters
@@ -49,7 +44,7 @@
       epkgs.kind-icon
       epkgs.cape
       epkgs.helpful
-      epkgs.which-key
+      epkgs.which-key # remove this as emacs 31 has it inbuilt?
       # --- Org, Markdown ---
       epkgs.markdown-mode
       epkgs.ox-gfm
@@ -57,38 +52,28 @@
       # --- Org-babel ---
       epkgs.ob-nix
       # --- Languages, Dev Tools ---
-      epkgs.rec-mode
-      epkgs.treesit-auto
-      epkgs.prettier-js
-      epkgs.nodejs-repl
       epkgs.nix-mode
       epkgs.auctex
       epkgs.haskell-mode
       # --- Project, Git ---
-      epkgs.projectile
-      epkgs.consult-projectile
       epkgs.magit
       epkgs.forge
-      epkgs.transient
+      epkgs.transient # auto-grabbed as depenedency of magit, remove?
       epkgs.pinentry
       # --- Dired ---
-      epkgs.all-the-icons-dired
       epkgs.dired-hide-dotfiles
-      # --- Element ---
-      epkgs.ement
       # --- RSS ---
       epkgs.elfeed
       epkgs.elfeed-protocol
       # --- Environment Integration ---
       epkgs.envrc
-      epkgs.inheritenv
+      epkgs.inheritenv # autograbbed as dependency of envrc, remove?
       epkgs.exec-path-from-shell
       epkgs.detached
       # --- Make eshell awesome ---
       epkgs.eshell-syntax-highlighting
       epkgs.esh-autosuggest
       epkgs.eshell-z
-      #epkgs.eat # could throw to it from eshell when a terminal is needed, could be nice if we can get it working
     ];
   };
 
