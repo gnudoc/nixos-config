@@ -43,7 +43,6 @@
       epkgs.corfu
       epkgs.kind-icon
       epkgs.cape
-      epkgs.helpful
       epkgs.which-key # remove this as emacs 31 has it inbuilt?
       # --- Org, Markdown ---
       epkgs.markdown-mode
