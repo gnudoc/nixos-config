@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home.packages = with pkgs; [
@@ -84,6 +84,10 @@
   };
   # inject a custom line into the [Service] line of the home manager derived unit
   systemd.user.services.emacs.Service = {
-    Environment = [ "GDK_BACKEND=wayland" ];
+    Environment = [
+      "GDK_BACKEND=wayland"
+      "SSH_AUTH_SOCK=%t/${config.services.ssh-agent.socket}"
+      # enable once we've enabled ssh-agent service in security/ssh.nix
+    ];
   };
 }
