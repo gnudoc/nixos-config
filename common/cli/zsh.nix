@@ -69,7 +69,7 @@
         alias ffo='ghostel_cmd find-file-other-window'
         alias vdo='ghostel_cmd dired-other-window "$(pwd)"'
         alias rgrep='ghostel_cmd consult-ripgrep'
-        alias pff='ghostel_cmd consult-projectile'
+        alias pff='ghostel_cmd project-find-file'
       fi
       alias -s org='emacsclient -c'
       alias -s txt='emacsclient -c'
