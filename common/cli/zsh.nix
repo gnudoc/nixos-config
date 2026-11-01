@@ -78,6 +78,14 @@
       zle -N edit-command-line
       bindkey '\ee' edit-command-line
     '';
+    # do ssh-add at the tty login so that when magit tries to sign with
+    # ssh-keygen -Y sign, the identity is known and the passphrase isn't
+    # asked for. git uses ssh-keygen, not ssh, for signing.
+    loginExtra = ''
+      if [[ -o interactive ]] && ! ssh-add -l >/dev/null 2>&1; then
+        ssh-add ~/.ssh/id_ed25519
+      fi
+    '';
   };
   programs.starship = {
     enable = true;

@@ -115,11 +115,12 @@ in
       startup = [
         # adding systemd.enable = true to the programs.waybar module should mean we don't need this
         # But it might be needed to have the dbus / systemd env immediately available after hibernate
+        # we used to have ssh_auth_sock among the vars, but the ssh-agent service does that now
         {
-          command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP SSH_AUTH_SOCK";
+          command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP";
         }
         {
-          command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP SSH_AUTH_SOCK";
+          command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP";
         }
       ];
       keybindings = lib.mkOptionDefault {

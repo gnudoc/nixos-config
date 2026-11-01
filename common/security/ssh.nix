@@ -8,9 +8,9 @@
     "d %h/.ssh/sockets 0700 - - - -"
   ];
   services.ssh-agent.enable = true;
-  # The above lets ssh-agent run early enough that the emacs daemon can grab
-  # the SSH_AUTH_SOCK (see emacs.nix), rather than that only being created
-  #  when keychain runs ssh-agent after the user logs in.
+  # The above means the ssh socket is made so the emacs daemon can grab
+  # the SSH_AUTH_SOCK (see emacs.nix). This and the ssh-add in zsh.nix
+  # mean smooth git commits and pushes
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
@@ -31,9 +31,4 @@
       };
     };
   };
-  # programs.keychain = {
-  #   enable = true;
-  #   enableZshIntegration = true;
-  #   keys = [ "id_ed25519" ];
-  # };
 }

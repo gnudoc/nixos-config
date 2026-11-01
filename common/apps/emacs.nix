@@ -41,9 +41,8 @@
       epkgs.embark
       epkgs.embark-consult
       epkgs.corfu
-      epkgs.kind-icon
+      epkgs.nerd-icons-corfu
       epkgs.cape
-      epkgs.which-key # remove this as emacs 31 has it inbuilt?
       # --- Org, Markdown ---
       epkgs.markdown-mode
       epkgs.ox-gfm
@@ -59,15 +58,12 @@
       epkgs.forge
       epkgs.transient # auto-grabbed as depenedency of magit, remove?
       epkgs.pinentry
-      # --- Dired ---
-      epkgs.dired-hide-dotfiles
       # --- RSS ---
       epkgs.elfeed
       epkgs.elfeed-protocol
       # --- Environment Integration ---
       epkgs.envrc
       epkgs.inheritenv # autograbbed as dependency of envrc, remove?
-      epkgs.exec-path-from-shell
       epkgs.detached
       # --- Make eshell awesome ---
       epkgs.eshell-syntax-highlighting
@@ -87,7 +83,6 @@
     Environment = [
       "GDK_BACKEND=wayland"
       "SSH_AUTH_SOCK=%t/${config.services.ssh-agent.socket}"
-      # enable once we've enabled ssh-agent service in security/ssh.nix
     ];
   };
 }
