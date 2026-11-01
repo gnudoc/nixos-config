@@ -17,6 +17,11 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  #for gdb in emacs to work with libstdc++ pretty-printers from the nix store
+  home.file.".gdbinit".text = ''
+    add-auto-load-safe-path /nix/store
+  '';
+
   programs.home-manager.enable = true;
   fonts.fontconfig.enable = true;
 }
