@@ -8,6 +8,7 @@
     ./desktop.nix
     ./networking.nix
     ./nix.nix
+    ./printing.nix
     ./security.nix
   ];
 }

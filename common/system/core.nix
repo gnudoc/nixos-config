@@ -31,6 +31,7 @@ in
       "networkmanager"
       "wheel"
       "cdrom"
+      "lp"
     ];
     shell = pkgs.zsh;
   };
