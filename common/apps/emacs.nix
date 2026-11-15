@@ -9,7 +9,6 @@
     nixfmt
     python3
     nerd-fonts.symbols-only # wanted by nerd-icons
-    dtach
     curl
   ];
 
@@ -23,7 +22,6 @@
       epkgs.pdf-tools
       # --- System/Core stuff ---
       epkgs.no-littering
-      epkgs.gcmh
       epkgs.bluetooth
       epkgs.daemons # a nice interface for systemctl
       epkgs.journalctl-mode # a nice interface for journalctl
@@ -34,10 +32,8 @@
       epkgs.nerd-icons-dired
       epkgs.rainbow-delimiters
       # --- Minibuffer, Completion ---
-      epkgs.vertico
       epkgs.orderless
       epkgs.consult
-      epkgs.marginalia
       epkgs.embark
       epkgs.embark-consult
       epkgs.corfu
@@ -52,23 +48,17 @@
       # --- Languages, Dev Tools ---
       epkgs.nix-mode
       epkgs.auctex
-      epkgs.haskell-mode
       # --- Project, Git ---
       epkgs.magit
       epkgs.forge
-      epkgs.transient # auto-grabbed as depenedency of magit, remove?
-      epkgs.pinentry
       # --- RSS ---
       epkgs.elfeed
       epkgs.elfeed-protocol
       # --- Environment Integration ---
       epkgs.envrc
-      epkgs.inheritenv # autograbbed as dependency of envrc, remove?
-      epkgs.detached
       # --- Make eshell awesome ---
       epkgs.eshell-syntax-highlighting
       epkgs.esh-autosuggest
-      epkgs.eshell-z
     ];
   };
 
