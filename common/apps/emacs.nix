@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    # consult, vertico
+    # consult
     ripgrep
     fd
     nixd
@@ -47,7 +47,6 @@
       epkgs.ob-nix
       # --- Languages, Dev Tools ---
       epkgs.nix-mode
-      epkgs.auctex
       # --- Project, Git ---
       epkgs.magit
       epkgs.forge
