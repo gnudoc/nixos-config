@@ -61,6 +61,19 @@
     ];
   };
 
+  # clangd's user-level config: the clang-tidy checks for every C++ project.
+  # A project can still override them with a .clangd file of its own.
+  xdg.configFile."clangd/config.yaml".text = ''
+    Diagnostics:
+      ClangTidy:
+        Add: [
+          "bugprone-*",
+          "cppcoreguidelines-*",
+          "modernize-*",
+          "performance-*"
+        ]
+  '';
+
   # for home manager to make the emacs systemd unit
   services.emacs = {
     enable = true;
