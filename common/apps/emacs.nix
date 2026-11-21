@@ -1,23 +1,27 @@
+# Emacs also relies on:
+#   direnv & nix-direnv (cli/zsh.nix)
+#   JetBrainsMono Nerd Font & Noto Sans (system/desktop.nix)
+#   ssh-agent (security/ssh.nix)
+
 { pkgs, config, ... }:
 
 {
   home.packages = with pkgs; [
-    # consult
-    ripgrep
-    fd
-    nixd
-    nixfmt
-    python3
-    nerd-fonts.symbols-only # wanted by nerd-icons
-    curl
+    ripgrep # consult-ripgrep, project.el search
+    fd # consult-fd
+    nixd # nix lang server
+    nixfmt # formatter called by nixd
+    nerd-fonts.symbols-only # font for nerd-icons
+    curl # elfeed-use-curl
   ];
 
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;
     extraPackages = epkgs: [
+      # === ~1 entry per use-package, with 2 known exceptions ===
       # --- Compiled ---
-      epkgs.treesit-grammars.with-all-grammars
+      epkgs.treesit-grammars.with-all-grammars # first exception
       epkgs.ghostel
       epkgs.pdf-tools
       # --- System/Core stuff ---
@@ -28,7 +32,6 @@
       # --- UI & Theming ---
       epkgs.doom-themes
       epkgs.doom-modeline
-      epkgs.nerd-icons
       epkgs.nerd-icons-dired
       epkgs.rainbow-delimiters
       # --- Minibuffer, Completion ---
@@ -44,7 +47,7 @@
       epkgs.ox-gfm
       epkgs.org-modern
       # --- Org-babel ---
-      epkgs.ob-nix
+      epkgs.ob-nix # second exception
       # --- Languages, Dev Tools ---
       epkgs.nix-mode
       # --- Project, Git ---
@@ -57,7 +60,7 @@
       epkgs.envrc
       # --- Make eshell awesome ---
       epkgs.eshell-syntax-highlighting
-      epkgs.esh-autosuggest
+      epkgs.capf-autosuggest
     ];
   };
 
