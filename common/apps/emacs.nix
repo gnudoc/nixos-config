@@ -6,13 +6,13 @@
 { pkgs, config, ... }:
 
 {
-  home.packages = with pkgs; [
-    ripgrep # consult-ripgrep, project.el search
-    fd # consult-fd
-    nixd # nix lang server
-    nixfmt # formatter called by nixd
-    nerd-fonts.symbols-only # font for nerd-icons
-    curl # elfeed-use-curl
+  home.packages = [
+    pkgs.ripgrep # consult-ripgrep, project.el search
+    pkgs.fd # consult-fd
+    pkgs.nixd # nix lang server
+    pkgs.nixfmt # formatter called by nixd
+    pkgs.nerd-fonts.symbols-only # font for nerd-icons
+    pkgs.curl # elfeed-use-curl
   ];
 
   programs.emacs = {

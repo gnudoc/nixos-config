@@ -14,7 +14,5 @@
   };
 
   # 3. Expose hp-setup and hp-testpage in our terminal PATH
-  environment.systemPackages = with pkgs; [
-    hplipWithPlugin
-  ];
+  environment.systemPackages = [ pkgs.hplipWithPlugin ];
 }

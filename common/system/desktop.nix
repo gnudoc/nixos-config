@@ -14,9 +14,9 @@
   hardware.bluetooth.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
     ];
     config.common.default = "*";
   };
@@ -30,10 +30,10 @@
   };
 
   # System-wide fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-    cantarell-fonts
-    noto-fonts
+  fonts.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.fira-code
+    pkgs.cantarell-fonts
+    pkgs.noto-fonts
   ];
 }

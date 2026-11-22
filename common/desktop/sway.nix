@@ -9,12 +9,12 @@ let
   c = theme.colors;
 in
 {
-  home.packages = with pkgs; [
-    swaylock
-    grim
-    slurp
-    wl-clipboard
-    brightnessctl
+  home.packages = [
+    pkgs.swaylock
+    pkgs.grim
+    pkgs.slurp
+    pkgs.wl-clipboard
+    pkgs.brightnessctl
   ];
   services.swayidle = {
     enable = true;
