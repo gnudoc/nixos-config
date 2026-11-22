@@ -1,8 +1,5 @@
 { pkgs, user, ... }:
 
-let
-  backupPrepare = pkgs.callPackage ../cli/backup-prepare.nix { };
-in
 {
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -57,12 +54,6 @@ in
     pkgs.lsof
     pkgs.btop
     pkgs.acpi
-
-    # The preparatory script for the backup system
-    backupPrepare
   ];
-
-  # no need for this as discard=async on the hardware-conf's implies this
-  # services.fstrim.enable = true;
 
 }
