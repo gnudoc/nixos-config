@@ -7,7 +7,7 @@
 let
   cfg = config.my.backup;
   user = config.my.user;
-  markerFile = "/home/${user}/.local/state/last_backup";
+  stateDir = "system-backup"; # in /var/lib/, instead of ~/.local/state/
   excludes = pkgs.writeText "backup-excludes.txt" ''
     .cache/
     .Trash/
@@ -26,7 +26,6 @@ let
       pkgs.coreutils
       pkgs.gnutar
       pkgs.gzip
-      pkgs.util-linux
     ];
     text = ''
       set -euo pipefail
@@ -43,10 +42,7 @@ let
       echo "Syncing ~${user} to ${cfg.host}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
         -e ssh "/home/${user}/" "${cfg.host}:/"
-      runuser -u ${user} -- mkdir -p "$(dirname "${markerFile}")"
-      chown ${user}:users "$(dirname "${markerFile}")"
-      touch "${markerFile}"
-      chown ${user}:users "${markerFile}"
+      touch ${cfg.markerFile}
     '';
   };
 in
@@ -58,6 +54,15 @@ in
       type = lib.types.str;
       default = "girion-tailscale";
       description = "SSH alias for the backup machine.";
+    };
+    markerFile = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/lib/${stateDir}/last-success";
+      readOnly = true;
+      description = ''
+        Touched after every successful run. The waybar module reads its age
+        (through osConfig) to show how old the last backup is.
+      '';
     };
   };
 
@@ -77,6 +82,7 @@ in
       description = "Backup ${config.networking.hostName} to NAS via tailscale";
       serviceConfig = {
         type = "oneshot";
+        StateDirectory = stateDir;
         ExecStart = "${backupScript}/bin/system-backup";
         Nice = 19;
         IOSchedulingClass = "idle";

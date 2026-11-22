@@ -1,8 +1,42 @@
-{ ... }:
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
 
 let
   theme = import ../theme.nix;
   c = theme.colors;
+  backup = osConfig.my.backup;
+
+  # Prints the age of the last successful backup as JSON for waybar's
+  # custom/backup module below. The marker is touched by system/backup.nix.
+  backupStatus = pkgs.writeShellApplication {
+    name = "backup-status-on-waybar";
+    runtimeInputs = [ pkgs.coreutils ];
+    text = ''
+      marker=${backup.markerFile}
+      if [ ! -f "$marker" ]; then
+          echo '{"text": "Unknown", "tooltip": "No backup marker found", "class": "critical"}'
+          exit 0
+      fi
+      last=$(stat -c %Y "$marker")
+      hours=$(( ($(date %s) - last) / 3600 ))
+      days=$(( hours / 24 ))
+      if [ "$hours" -lt 24 ]; then
+          class="good"
+          text="''${hours}h"
+      elif [ "$days" -lt 3 ]; then
+          class="warning"
+          text="''${days}d"
+      else
+          class="critical"
+          text="''${days}d!"
+      fi
+      echo "{\"text\": \"$text\", \"tooltip\": \"Last successful backup: $(date -d @"$last")\", \"class\": \"$class\"}"
+    '';
+  };
 in
 
 {
@@ -21,17 +55,22 @@ in
           "sway/window"
         ];
         modules-center = [ "clock" ];
-        modules-right = [
-          "custom/backup"
-          "custom/sep"
-          "wireplumber"
-          "custom/sep"
-          "backlight"
-          "custom/sep"
-          "battery"
-          "custom/sep"
-          "tray"
-        ];
+        modules-right =
+          # backup indicator only on hosts that are backed up
+          lib.optionals backup.enable
+            [
+              "custom/backup"
+              "custom/sep"
+            ]
+            [
+              "wireplumber"
+              "custom/sep"
+              "backlight"
+              "custom/sep"
+              "battery"
+              "custom/sep"
+              "tray"
+            ];
         "sway/workspaces" = {
           format = "{name}";
           disable-scroll = true;
@@ -56,7 +95,7 @@ in
           format = "{:%H:%M}";
         };
         "custom/backup" = {
-          exec = "backup-status-on-waybar";
+          exec = lib.getExe backupStatus;
           return-type = "json";
           interval = 3600;
           format = "  {}";
