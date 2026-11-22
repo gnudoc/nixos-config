@@ -2,10 +2,10 @@
   pkgs,
   config,
   backupHost,
-  user,
   ...
 }:
 let
+  user = config.my.user;
   markerFile = "/home/${user}/.local/state/last_backup";
   excludes = pkgs.writeText "backup-excludes.txt" ''
     .cache/

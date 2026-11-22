@@ -14,7 +14,7 @@
     extraUpFlags = [
       "--exit-node=100.84.16.46"
       "--exit-node-allow-lan-access=true"
-      "--operator=nij"
+      "--operator=${config.my.user}"
     ];
   };
 

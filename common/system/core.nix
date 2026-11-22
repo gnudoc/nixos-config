@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 
 {
   time.timeZone = "Europe/London";
@@ -16,21 +16,6 @@
     enable = true;
     interval = "monthly";
     fileSystems = [ "/" ];
-  };
-
-  # The zsh config is in home manager, but
-  # we enable it here so it's available for /etc/shells
-  programs.zsh.enable = true;
-
-  users.users.${user} = {
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "cdrom"
-      "lp"
-    ];
-    shell = pkgs.zsh;
   };
 
   environment.systemPackages = [

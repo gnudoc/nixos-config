@@ -33,15 +33,11 @@
           extraModules ? [ ],
           backupHost ? "girion-tailscale",
         }:
-        let
-          user = "nij";
-        in
         nixpkgs.lib.nixosSystem {
           # Pass variables to everything to let them be referenced downstream
           specialArgs = {
             inherit
               inputs
-              user
               backupHost
               ;
           };
@@ -50,18 +46,6 @@
             ./hosts/${hostname}/configuration.nix
             { networking.hostName = hostname; }
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit
-                  inputs
-                  user
-                  backupHost
-                  ;
-              };
-              home-manager.users.${user} = ./common/home.nix;
-            }
           ]
           ++ extraModules;
         };

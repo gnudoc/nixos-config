@@ -10,5 +10,6 @@
     ./nix.nix
     ./printing.nix
     ./security.nix
+    ./users.nix
   ];
 }

@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ config, pkgs, ... }:
 
 {
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
@@ -20,11 +20,11 @@
   age.secrets = {
     authinfo = {
       file = ../../secrets/authinfo.age;
-      owner = user;
+      owner = config.my.user;
     };
     ssh_config = {
       file = ../../secrets/ssh_config.age;
-      owner = user;
+      owner = config.my.user;
     };
   };
 }
