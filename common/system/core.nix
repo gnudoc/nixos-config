@@ -34,9 +34,8 @@
   };
 
   environment.systemPackages = [
-    # Utils/Editors
+    # Utils
     pkgs.wget
-    pkgs.nano
     pkgs.file
 
     # Archives & Text
