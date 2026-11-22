@@ -1,4 +1,4 @@
-{ config, tunnelAlias, ... }:
+{ config, ... }:
 
 {
   # --- ZSH, Starship, and Direnv ---
@@ -15,7 +15,8 @@
     shellAliases = {
       bat = "acpi -V";
       btc = "bluetoothctl";
-      proxsh = "ssh -D 1080 ${tunnelAlias}";
+      # ssh-nas-tunnel is a Host in the ssh config
+      proxsh = "ssh -D 1080 ssh-nas-tunnel";
       ls = "ls --color=auto -F";
       ll = "ls -lh --color=auto -F";
       la = "ls -lah --color=auto -F";

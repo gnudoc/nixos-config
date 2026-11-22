@@ -32,7 +32,6 @@
           hostname,
           extraModules ? [ ],
           backupHost ? "girion-tailscale",
-          tunnelAlias ? "ssh-nas-tunnel",
         }:
         let
           user = "nij";
@@ -44,7 +43,6 @@
               inputs
               user
               backupHost
-              tunnelAlias
               ;
           };
           modules = [
@@ -60,7 +58,6 @@
                   inputs
                   user
                   backupHost
-                  tunnelAlias
                   ;
               };
               home-manager.users.${user} = import ./hosts/${hostname}/home.nix;
@@ -74,7 +71,6 @@
         sure = mkSystem {
           hostname = "sure";
           backupHost = "girion-tailscale";
-          tunnelAlias = "ssh-nas-tunnel";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
@@ -83,7 +79,6 @@
         galvorn = mkSystem {
           hostname = "galvorn";
           backupHost = "girion-tailscale";
-          tunnelAlias = "ssh-nas-tunnel";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
