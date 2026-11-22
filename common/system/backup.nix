@@ -41,7 +41,8 @@ let
       # Targeting `:/` here is expected; the NAS jail handles the routing.
       echo "Syncing ~${user} to ${cfg.host}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
-        -e ssh "/home/${user}/" "${cfg.host}:/"
+        -e "ssh -l ${config.networking.hostName}_backup -i ${config.age.secrets.laptop_backup_key.path} -o IdentitiesOnly=yes" \
+        "/home/${user}/" "${cfg.host}:/"
       touch ${cfg.markerFile}
     '';
   };
@@ -72,12 +73,6 @@ in
       mode = "0400";
       owner = "root";
     };
-    programs.ssh.extraConfig = ''
-      Host ${cfg.host}
-        User ${config.networking.hostName}_backup
-        IdentityFile ${config.age.secrets.laptop_backup_key.path}
-        IdentitiesOnly yes
-    '';
     systemd.services.system-backup = {
       description = "Backup ${config.networking.hostName} to NAS via tailscale";
       serviceConfig = {
