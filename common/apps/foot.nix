@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 let
   theme = import ../theme.nix;
@@ -13,7 +13,6 @@ in
         font = "JetBrainsMono NF:size=12";
         pad = "8x8";
         term = "xterm-256color";
-        shell = "${pkgs.zsh}/bin/zsh";
       };
       colors-dark = {
         alpha = "0.95";
