@@ -60,7 +60,7 @@
                   backupHost
                   ;
               };
-              home-manager.users.${user} = import ./hosts/${hostname}/home.nix;
+              home-manager.users.${user} = ./common/home.nix;
             }
           ]
           ++ extraModules;
