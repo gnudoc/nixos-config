@@ -13,7 +13,6 @@
       size = 10;
     };
   };
-  dconf.enable = true;
   home.pointerCursor = {
     enable = true;
     name = "Adwaita";

@@ -4,7 +4,6 @@
   # --- ZSH, Starship, and Direnv ---
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history = {
@@ -87,13 +86,9 @@
       fi
     '';
   };
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  programs.starship.enable = true;
   programs.direnv = {
     enable = true;
-    enableZshIntegration = true;
     nix-direnv.enable = true;
   };
 }

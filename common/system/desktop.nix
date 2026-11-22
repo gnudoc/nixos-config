@@ -15,10 +15,7 @@
   };
   hardware.graphics.enable = true;
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
+  hardware.bluetooth.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
