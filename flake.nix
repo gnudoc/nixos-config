@@ -22,7 +22,6 @@
       mkSystem =
         {
           hostname,
-          system ? "x86_64-linux",
           extraModules ? [ ],
           backupHost ? "girion-tailscale",
           tunnelAlias ? "ssh-nas-tunnel",
@@ -31,7 +30,6 @@
           user = "nij";
         in
         nixpkgs.lib.nixosSystem {
-          inherit system;
           # Pass variables to everything to let them be referenced downstream
           specialArgs = {
             inherit
