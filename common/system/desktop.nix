@@ -2,8 +2,6 @@
 { pkgs, ... }:
 
 {
-  systemd.tmpfiles.rules = [ "d /var/lib/alsa 0755 root root -" ];
-
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -38,5 +36,4 @@
     cantarell-fonts
     noto-fonts
   ];
-
 }
