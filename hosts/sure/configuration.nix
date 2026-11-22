@@ -6,6 +6,10 @@
     ../../common/system
   ];
 
+  # off until secrets/sure_backup_key.age exists, which in turn needs
+  # this machine's host key in secrets/secrets.nix
+  # my.backup.enable = true;
+
   # Declaratively ensure the mount point exists with the correct ownership
   systemd.tmpfiles.rules = [
     "d /mnt/internal-ssd 0755 ${config.my.user} users -"

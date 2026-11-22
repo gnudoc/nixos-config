@@ -5,6 +5,8 @@
     ../../common/system
   ];
 
+  my.backup.enable = true;
+  
   boot.resumeDevice = "/dev/disk/by-uuid/3fe1a7d1-5501-4ce9-bb66-94243052c508";
 
   age.secrets.tailscale.file = ../../secrets/tailscale.age;

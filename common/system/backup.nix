@@ -1,10 +1,11 @@
 {
   pkgs,
   config,
-  backupHost,
+  lib,
   ...
 }:
 let
+  cfg = config.my.backup;
   user = config.my.user;
   markerFile = "/home/${user}/.local/state/last_backup";
   excludes = pkgs.writeText "backup-excludes.txt" ''
@@ -39,9 +40,9 @@ let
       # Note: The remote authorized_keys uses `rrsync` to force the destination
       # to `/mnt/main-pool/${config.networking.hostName}-backup/home/`. 
       # Targeting `:/` here is expected; the NAS jail handles the routing.
-      echo "Syncing ~${user} to ${backupHost}...";
+      echo "Syncing ~${user} to ${cfg.host}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
-        -e ssh "/home/${user}/" "${backupHost}:/"
+        -e ssh "/home/${user}/" "${cfg.host}:/"
       runuser -u ${user} -- mkdir -p "$(dirname "${markerFile}")"
       chown ${user}:users "$(dirname "${markerFile}")"
       touch "${markerFile}"
@@ -50,33 +51,45 @@ let
   };
 in
 {
-  age.secrets.laptop_backup_key = {
-    file = ../../secrets/${config.networking.hostName}_backup_key.age;
-    mode = "0400";
-    owner = "root";
-  };
-  programs.ssh.extraConfig = ''
-    Host ${backupHost}
-      User ${config.networking.hostName}_backup
-      IdentityFile ${config.age.secrets.laptop_backup_key.path}
-      IdentitiesOnly yes
-  '';
-  systemd.services.system-backup = {
-    description = "Backup ${config.networking.hostName} to NAS via tailscale";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${backupScript}/bin/system-backup";
-      Nice = 19;
-      IOSchedulingClass = "idle";
+  options.my.backup = {
+    enable = lib.mkEnableOption "the twice-hourly rsync of $HOME to the backup server";
+
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "girion-tailscale";
+      description = "SSH alias for the backup machine.";
     };
   };
-  systemd.timers.system-backup = {
-    description = "Run backup at 23/53min past each hour";
-    timerConfig = {
-      OnCalendar = "*:23,53:00";
-      Persistent = true;
-      RandomizedDelaySec = "60s";
+
+  config = lib.mkIf cfg.enable {
+    age.secrets.laptop_backup_key = {
+      file = ../../secrets/${config.networking.hostName}_backup_key.age;
+      mode = "0400";
+      owner = "root";
     };
-    wantedBy = [ "timers.target" ];
+    programs.ssh.extraConfig = ''
+      Host ${cfg.host}
+        User ${config.networking.hostName}_backup
+        IdentityFile ${config.age.secrets.laptop_backup_key.path}
+        IdentitiesOnly yes
+    '';
+    systemd.services.system-backup = {
+      description = "Backup ${config.networking.hostName} to NAS via tailscale";
+      serviceConfig = {
+        type = "oneshot";
+        ExecStart = "${backupScript}/bin/system-backup";
+        Nice = 19;
+        IOSchedulingClass = "idle";
+      };
+    };
+    systemd.timers.system-backup = {
+      description = "Run backup at 23/53min past each hour";
+      timerConfig = {
+        OnCalendar = "*:23,53:00";
+        Persistent = true;
+        RandomizedDelaySec = "60s";
+      };
+      wantedBy = [ "timers.target" ];
+    };
   };
 }

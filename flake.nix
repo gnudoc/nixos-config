@@ -31,16 +31,12 @@
         {
           hostname,
           extraModules ? [ ],
-          backupHost ? "girion-tailscale",
         }:
         nixpkgs.lib.nixosSystem {
-          # Pass variables to everything to let them be referenced downstream
-          specialArgs = {
-            inherit
-              inputs
-              backupHost
-              ;
-          };
+          # specialArgs is only for what modules need inside `imports`, which is
+          # resolved before any option exists. Everything else travels as
+          # options: see my.user (common/system/users.nix) and my.backup.
+          specialArgs = { inherit inputs; };
           modules = [
             agenix.nixosModules.default
             ./hosts/${hostname}/configuration.nix
@@ -54,7 +50,6 @@
       nixosConfigurations = {
         sure = mkSystem {
           hostname = "sure";
-          backupHost = "girion-tailscale";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
@@ -62,7 +57,6 @@
         };
         galvorn = mkSystem {
           hostname = "galvorn";
-          backupHost = "girion-tailscale";
           extraModules = [
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc-laptop
