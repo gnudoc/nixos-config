@@ -1,4 +1,4 @@
-{ user, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,8 +7,6 @@
     ./desktop
     ./security
   ];
-  home.username = user;
-  home.homeDirectory = "/home/${user}";
   home.stateVersion = "25.11";
   home.sessionPath = [ "$HOME/.local/bin" ];
 
@@ -22,6 +20,5 @@
     add-auto-load-safe-path /nix/store
   '';
 
-  programs.home-manager.enable = true;
   fonts.fontconfig.enable = true;
 }
