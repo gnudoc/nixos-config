@@ -13,8 +13,6 @@
     variant = "dvorak";
     options = "ctrl:swapcaps";
   };
-  hardware.graphics.enable = true;
-
   hardware.bluetooth.enable = true;
   xdg.portal = {
     enable = true;
