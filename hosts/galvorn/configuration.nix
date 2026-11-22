@@ -1,11 +1,9 @@
-{ config, hostname, ... }:
+{ config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../../common/system
   ];
-
-  networking.hostName = hostname;
 
   boot.resumeDevice = "/dev/disk/by-uuid/3fe1a7d1-5501-4ce9-bb66-94243052c508";
 

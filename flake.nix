@@ -45,12 +45,12 @@
               user
               backupHost
               tunnelAlias
-              hostname
               ;
           };
           modules = [
             agenix.nixosModules.default
             ./hosts/${hostname}/configuration.nix
+            { networking.hostName = hostname; }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -61,7 +61,6 @@
                   user
                   backupHost
                   tunnelAlias
-                  hostname
                   ;
               };
               home-manager.users.${user} = import ./hosts/${hostname}/home.nix;
