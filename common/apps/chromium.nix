@@ -14,7 +14,7 @@
       "--enable-features=VaapiVideoDecodeLinuxGL,AcceleratedVideoEncoder"
       "--enable-gpu-rasterization"
       "--enable-zero-copy"
-      "--ignore-gpu-blacklist"
+      "--ignore-gpu-blocklist"
     ];
   };
 }
