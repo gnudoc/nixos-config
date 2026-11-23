@@ -83,7 +83,7 @@ in
     systemd.services.system-backup = {
       description = "Back up ${home} to ${cfg.host}";
       serviceConfig = {
-        type = "oneshot";
+        Type = "oneshot";
         ExecStart = lib.getExe backupScript;
         StateDirectory = stateDir;
         Nice = 19;
