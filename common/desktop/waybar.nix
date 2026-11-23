@@ -40,7 +40,9 @@ let
 in
 
 {
+  xsession.preferStatusNotifierItems = true;
   services.network-manager-applet.enable = true;
+
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -57,20 +59,19 @@ in
         modules-center = [ "clock" ];
         modules-right =
           # backup indicator only on hosts that are backed up
-          lib.optionals backup.enable
-            [
-              "custom/backup"
-              "custom/sep"
-            ]
-            ++ [
-              "wireplumber"
-              "custom/sep"
-              "backlight"
-              "custom/sep"
-              "battery"
-              "custom/sep"
-              "tray"
-            ];
+          lib.optionals backup.enable [
+            "custom/backup"
+            "custom/sep"
+          ]
+          ++ [
+            "wireplumber"
+            "custom/sep"
+            "backlight"
+            "custom/sep"
+            "battery"
+            "custom/sep"
+            "tray"
+          ];
         "sway/workspaces" = {
           format = "{name}";
           disable-scroll = true;
