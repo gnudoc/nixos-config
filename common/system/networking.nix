@@ -46,7 +46,6 @@
           connection = {
             id = "eduroam";
             type = "wifi";
-            interface-name = "wlp1s0";
           };
           wifi = {
             ssid = "eduroam";
