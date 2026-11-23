@@ -36,5 +36,6 @@
     in
     {
       nixosConfigurations = nixpkgs.lib.genAttrs [ "galvorn" "sure" ] mkHost;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }
