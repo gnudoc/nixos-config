@@ -6,8 +6,9 @@
     ../../common/system
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
-
   ];
+
+  system.stateVersion = "25.11"; # DON'T CHANGE THIS!
 
   # off until secrets/sure_backup_key.age exists, which in turn needs
   # this machine's host key in secrets/secrets.nix

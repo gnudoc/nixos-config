@@ -5,8 +5,9 @@
     ../../common/system
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
-
   ];
+
+  system.stateVersion = "25.11"; # DON'T CHANGE THIS!
 
   my.backup.enable = true;
 

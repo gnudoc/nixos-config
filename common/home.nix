@@ -1,4 +1,4 @@
-{ ... }:
+{ osConfig, ... }:
 
 {
   imports = [
@@ -7,7 +7,7 @@
     ./desktop
     ./security
   ];
-  home.stateVersion = "25.11";
+  home.stateVersion = osConfig.system.stateVersion;
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   #for chromium/electron stuff in wayland

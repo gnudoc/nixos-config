@@ -18,6 +18,4 @@
     pkgs.nix-tree
     pkgs.nix-index
   ];
-
-  system.stateVersion = "25.11"; # DON'T CHANGE THIS!
 }
