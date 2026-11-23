@@ -1,3 +1,6 @@
+# Twice-hourly rsync of $HOME to the backup server
+# run as root by a systemd timer
+
 {
   pkgs,
   config,
@@ -7,6 +10,8 @@
 let
   cfg = config.my.backup;
   user = config.my.user;
+  home = config.users.users.${user}.home;
+  hostname = config.networking.hostName;
   stateDir = "system-backup"; # in /var/lib/, instead of ~/.local/state/
   excludes = pkgs.writeText "backup-excludes.txt" ''
     .cache/
@@ -27,22 +32,27 @@ let
       pkgs.gnutar
       pkgs.gzip
     ];
+    # writeShellApplication already runs the script under `set -euo pipefail`
+    # and shellchecks it at build time.
     text = ''
-      set -euo pipefail
-      TARGET_ARCHIVE="/home/${user}/.config/laptop-backup/secure-configs.tar.gz"
-      mkdir -p "$(dirname "$TARGET_ARCHIVE")"
+      # Root-only system state that should survive a reinstall. It goes into
+      # the user's home so that the rsync below picks it up.
+      archive=${home}/.config/laptop-backup/secure-configs.tar.gz
+      install -d -o ${user} -g users "$(dirname "$archive")"
       echo "Archiving system security paths..."
-      tar -czPf "$TARGET_ARCHIVE" /var/lib/bluetooth \
+      # tar exits non-zero if a path is missing or a file changes while it is
+      # being read; neither should stop the home directory being backed up.
+      tar -czPf "$archive" /var/lib/bluetooth \
         /etc/NetworkManager/system-connections /etc/ssh || true
-      chown ${user}:users "$TARGET_ARCHIVE"
-      chmod 600 "$TARGET_ARCHIVE"
-      # Note: The remote authorized_keys uses `rrsync` to force the destination
-      # to `/mnt/main-pool/${config.networking.hostName}-backup/home/`. 
-      # Targeting `:/` here is expected; the NAS jail handles the routing.
-      echo "Syncing ~${user} to ${cfg.host}...";
+      chown ${user}:users "$archive"
+      chmod 600 "$archive"
+      # The server's authorized_keys pin this entry to `rrsync`, rooted at
+      # `/mnt/main-pool/${hostname}-backup/home/. The ":/" destination is 
+      # therefore that directory, not the server's real root.
+      echo "Syncing ${home} to ${cfg.host}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
-        -e "ssh -l ${config.networking.hostName}_backup -i ${config.age.secrets.laptop_backup_key.path} -o IdentitiesOnly=yes" \
-        "/home/${user}/" "${cfg.host}:/"
+        -e "ssh -l ${hostname}_backup -i ${config.age.secrets.laptop_backup_key.path} -o IdentitiesOnly=yes" \
+        "${home}/" "${cfg.host}:/"
       touch ${cfg.markerFile}
     '';
   };
@@ -68,29 +78,27 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    age.secrets.laptop_backup_key = {
-      file = ../../secrets/${config.networking.hostName}_backup_key.age;
-      mode = "0400";
-      owner = "root";
-    };
+    age.secrets.laptop_backup_key.file = ../../secrets/${hostname}_backup_key.age;
+
     systemd.services.system-backup = {
-      description = "Backup ${config.networking.hostName} to NAS via tailscale";
+      description = "Back up ${home} to ${cfg.host}";
       serviceConfig = {
         type = "oneshot";
+        ExecStart = lib.getExe backupScript;
         StateDirectory = stateDir;
-        ExecStart = "${backupScript}/bin/system-backup";
         Nice = 19;
         IOSchedulingClass = "idle";
       };
     };
+
     systemd.timers.system-backup = {
-      description = "Run backup at 23/53min past each hour";
+      description = "Run backup at 23 and 53 minutes past each hour";
+      wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = "*:23,53:00";
-        Persistent = true;
+        Persistent = true; # catch up after sleep / power-off
         RandomizedDelaySec = "60s";
       };
-      wantedBy = [ "timers.target" ];
     };
   };
 }
