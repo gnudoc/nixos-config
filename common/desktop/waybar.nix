@@ -22,7 +22,7 @@ let
           exit 0
       fi
       last=$(stat -c %Y "$marker")
-      hours=$(( ($(date %s) - last) / 3600 ))
+      hours=$(( ($(date +%s) - last) / 3600 ))
       days=$(( hours / 24 ))
       if [ "$hours" -lt 24 ]; then
           class="good"

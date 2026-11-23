@@ -9,7 +9,7 @@
   options.my.user = lib.mkOption {
     type = lib.types.str;
     default = "nij";
-    description = "A N Human";
+    description = "User";
   };
 
   config = {
