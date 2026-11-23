@@ -1,9 +1,12 @@
-{ config, ... }:
+{ config, inputs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ../../common/system
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
+
   ];
 
   # off until secrets/sure_backup_key.age exists, which in turn needs

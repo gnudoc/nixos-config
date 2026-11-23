@@ -1,7 +1,9 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
+    inputs.agenix.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
     ./backup.nix
     ./boot.nix
     ./core.nix

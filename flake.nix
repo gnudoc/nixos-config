@@ -19,49 +19,22 @@
   };
 
   outputs =
-    {
-      nixpkgs,
-      nixos-hardware,
-      home-manager,
-      agenix,
-      ...
-    }@inputs:
+    { nixpkgs, ... }@inputs:
     let
-      mkSystem =
-        {
-          hostname,
-          extraModules ? [ ],
-        }:
+      mkHost =
+        hostname:
         nixpkgs.lib.nixosSystem {
           # specialArgs is only for what modules need inside `imports`, which is
           # resolved before any option exists. Everything else travels as
           # options: see my.user (common/system/users.nix) and my.backup.
           specialArgs = { inherit inputs; };
           modules = [
-            agenix.nixosModules.default
             ./hosts/${hostname}/configuration.nix
             { networking.hostName = hostname; }
-            home-manager.nixosModules.home-manager
-          ]
-          ++ extraModules;
+          ];
         };
     in
     {
-      nixosConfigurations = {
-        sure = mkSystem {
-          hostname = "sure";
-          extraModules = [
-            nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-pc-laptop
-          ];
-        };
-        galvorn = mkSystem {
-          hostname = "galvorn";
-          extraModules = [
-            nixos-hardware.nixosModules.common-cpu-intel
-            nixos-hardware.nixosModules.common-pc-laptop
-          ];
-        };
-      };
+      nixosConfigurations = nixpkgs.lib.genAttrs [ "galvorn" "sure" ] mkHost;
     };
 }
