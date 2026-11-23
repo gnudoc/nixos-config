@@ -24,7 +24,7 @@
           wifi = {
             ssid = "GL-MT6000-5b7";
           };
-          wifi-sec = {
+          wifi-security = {
             key-mgmt = "wpa-psk";
             psk = "$HOME_WIFI_PASSWORD";
           };
@@ -37,7 +37,7 @@
           wifi = {
             ssid = "Moth";
           };
-          wifi-sec = {
+          wifi-security = {
             key-mgmt = "wpa-psk";
             psk = "$PIXEL_HOTSPOT_PASSWORD";
           };
@@ -51,7 +51,7 @@
           wifi = {
             ssid = "eduroam";
           };
-          wifi-sec = {
+          wifi-security = {
             key-mgmt = "wpa-eap";
           };
           "802-1x" = {

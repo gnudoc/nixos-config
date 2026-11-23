@@ -62,7 +62,7 @@ in
               "custom/backup"
               "custom/sep"
             ]
-            [
+            ++ [
               "wireplumber"
               "custom/sep"
               "backlight"
