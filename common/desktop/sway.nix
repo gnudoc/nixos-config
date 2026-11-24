@@ -29,6 +29,11 @@ in
     pkgs.wl-clipboard
     pkgs.brightnessctl
   ];
+  # Prompts for a password when a program asks polkit for privileges
+  # replacing my handwritten polkit-gnome-authentication-agent-1 service
+  services.polkit-gnome.enable = true;
+  systemd.user.services.polkit-gnome.Service.Restart = "on-failure";
+
   services.swayidle = {
     enable = true;
     events.before-sleep = lock;
