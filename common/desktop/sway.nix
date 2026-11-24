@@ -1,5 +1,6 @@
 {
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -36,6 +37,9 @@ in
 
   wayland.windowManager.sway = {
     enable = true;
+    # Use the sway that programs.sway installs (system/desktop.nix) rather
+    # than building a second, differently wrapped copy for the user profile.
+    package = osConfig.programs.sway.package;
     checkConfig = false;
     config = rec {
       modifier = "Mod4";
