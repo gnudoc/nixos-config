@@ -12,14 +12,6 @@
     options = "ctrl:swapcaps";
   };
   hardware.bluetooth.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-    ];
-    config.common.default = "*";
-  };
 
   security.rtkit.enable = true; # RealTimeKit; relates to pipewire etc
   services.pipewire = {
