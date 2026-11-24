@@ -8,6 +8,7 @@
 let
   theme = import ../theme.nix;
   c = theme.colors;
+  inherit (osConfig.services.xserver) xkb;
   # mod, notify, menu are so we don't have to use config = rec {...}
   mod = "Mod4";
   lock = "${lib.getExe pkgs.swaylock} -f -c ${c.bg}";
@@ -59,9 +60,9 @@ in
       };
       input = {
         "type:keyboard" = {
-          xkb_layout = "gb";
-          xkb_variant = "dvorak";
-          xkb_options = "ctrl:swapcaps";
+          xkb_layout = xkb.layout;
+          xkb_variant = xkb.variant;
+          xkb_options = xkb.options;
         };
         "type:touchpad" = {
           dwt = "enabled";
