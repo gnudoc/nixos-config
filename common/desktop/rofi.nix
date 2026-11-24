@@ -7,8 +7,8 @@
     enable = true;
     theme = "Monokai";
     settings = {
-      modi = "window,drun,ssh,keys,filebrowser,combi";
-      "combi-modi" = "window,drun,ssh,keys,filebrowser";
+      modes = "window,drun,ssh,keys,filebrowser,combi";
+      combi-modes = "window,drun,ssh,keys,filebrowser";
       show = "combi";
     };
   };

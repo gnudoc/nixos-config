@@ -137,7 +137,7 @@ in
         "${mod}+d" = "exec ${emacsFrame "dired" "(call-interactively 'dired)"}";
         "${mod}+g" = "exec ${emacsFrame "magit" "(magit-status)"}";
         "${mod}+e" = "exec ${emacsFrame "emacs" "(scratch-buffer)"}";
-        "${mod}+s" = "exec rofi -show p -modi p:rofi-power-menu";
+        "${mod}+s" = "exec rofi -show p -modes p:rofi-power-menu";
         "${mod}+Shift+e" =
           "exec systemctl --user restart emacs.service && ${notify} 'Emacs' 'Daemon restarted successfully' || ${notify} -u critical 'Emacs' 'Failed to restart daemon'";
 
