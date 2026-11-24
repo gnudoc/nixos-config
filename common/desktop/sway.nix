@@ -8,6 +8,7 @@
 let
   theme = import ../theme.nix;
   c = theme.colors;
+  lock = "${lib.getExe pkgs.swaylock} -f -c ${c.bg}";
 in
 {
   home.packages = [
@@ -19,13 +20,11 @@ in
   ];
   services.swayidle = {
     enable = true;
-    events = {
-      before-sleep = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
-    };
+    events.before-sleep = lock;
     timeouts = [
       {
         timeout = 300;
-        command = "pgrep -x swaylock || ${pkgs.swaylock}/bin/swaylock -f -c ${c.bg}";
+        command = lock;
       }
       {
         timeout = 330;
@@ -128,7 +127,7 @@ in
         }
       ];
       keybindings = lib.mkOptionDefault {
-        "${modifier}+Escape" = "exec swaylock -f -c ${c.bg}";
+        "${modifier}+Escape" = "exec ${lock}";
         "${modifier}+b" = "exec chromium";
         "${modifier}+r" = "exec ${menu}";
         "${modifier}+q" = "kill";
