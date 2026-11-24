@@ -9,6 +9,7 @@ let
   theme = import ../theme.nix;
   c = theme.colors;
   lock = "${lib.getExe pkgs.swaylock} -f -c ${c.bg}";
+  swaymsg = lib.getExe' pkgs.sway "swaymsg";
 in
 {
   home.packages = [
@@ -28,8 +29,8 @@ in
       }
       {
         timeout = 330;
-        command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
-        resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+        command = "${swaymsg} 'output * power off'";
+        resumeCommand = "${swaymsg} 'output * power on'";
       }
     ];
   };
