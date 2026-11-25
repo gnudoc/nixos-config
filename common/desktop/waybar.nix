@@ -97,7 +97,6 @@ in
           scroll-step = 5;
         };
         battery = {
-          bat = "BAT0";
           interval = 60;
           format = "{icon} {capacity}%";
           format-icons = [
