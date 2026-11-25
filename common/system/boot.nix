@@ -1,9 +1,18 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+
+  # Hibernation resumes from the swap partition that hardware-configuration.nix
+  # already declares, so read the device from there instead of repeating a UUID.
+  boot.resumeDevice = lib.mkIf (config.swapDevices != [ ]) (lib.head config.swapDevices).device;
 
   # Workaround for Wayland resume freezes - systemd v256 exposed a bunch of kernel bugs
   systemd.services = {
