@@ -6,6 +6,10 @@
 }:
 
 {
+  # agenix decrypts with the machine's ssh host key. The laptops don't run
+  # sshd, so ask for the host keys to be generated anyway, and name the key
+  # explicitly (agenix only finds it by itself when sshd is enabled).
+  services.openssh.generateHostKeys = true;
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # The agenix command, at the version flake.lock pins for the module.
