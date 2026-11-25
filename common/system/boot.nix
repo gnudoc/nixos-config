@@ -29,6 +29,8 @@
 
   # we probably want linux LTS (which is the default without this setting)
   # for servers esp if they use openZFS or any other out-of-tree things.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # By making the _latest kernel `mkDefault`, we allow them to get
+  # linuxPackages, without having to do mkForce.
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
 }
