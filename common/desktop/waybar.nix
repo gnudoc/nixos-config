@@ -76,17 +76,7 @@ in
           format = "{name}";
           disable-scroll = true;
           all-outputs = true;
-          persistent-workspaces = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-            "5" = [ ];
-            "6" = [ ];
-            "7" = [ ];
-            "8" = [ ];
-            "9" = [ ];
-          };
+          persistent-workspaces = lib.genAttrs (map toString (lib.range 1 10)) (_: [ ]);
         };
         "sway/window" = {
           max-length = 40;
