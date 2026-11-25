@@ -24,8 +24,8 @@
       less = "less -RiFX";
       wget = "wget -c";
       grep = "grep --color=auto";
-      fgrep = "fgrep --color=auto";
-      egrep = "egrep --color=auto";
+      fgrep = "grep -F --color=auto";
+      egrep = "grep --E--color=auto";
     };
     # Extra stuff that goes in .zshenv
     envExtra = ''
