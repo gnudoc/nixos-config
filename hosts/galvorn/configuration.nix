@@ -1,4 +1,9 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,6 +15,14 @@
   system.stateVersion = "25.11"; # DON'T CHANGE THIS!
 
   my.backup.enable = true;
+
+  # hardware-configuration.nix recorded /boot as world-readable
+  # which bootctl reports as a security hole because systemd-boot keeps its
+  # random seed there. mkForce replaces that list rather than adding to it.
+  fileSystems."/boot".options = lib.mkForce [
+    "fmask=0077"
+    "dmask=0077"
+  ];
 
   age.secrets.tailscale.file = ../../secrets/tailscale.age;
 
