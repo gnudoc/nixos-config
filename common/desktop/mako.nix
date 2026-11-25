@@ -13,11 +13,12 @@ in
       border-color = "#${c.cyan}";
       progress-color = "over #${c.green}";
       default-timeout = 5000;
+      # A nested set becomes a [criteria] section: critical notifications
+      # get a red border and stay until dismissed.
+      "urgency=critical" = {
+        border-color = "#${c.red}";
+        default-timeout = 0;
+      };
     };
-    extraConfig = ''
-      [urgency=critical]
-      border-color=#${c.red}
-      default-timeout=0
-    '';
   };
 }
