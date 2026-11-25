@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ osConfig, pkgs, ... }:
 
 {
   home.packages = [ pkgs.cloudflared ];
@@ -14,9 +14,9 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    # This include is so that the public repo has infrastructure details
-    # secured by age-nix
-    includes = [ "/run/agenix/ssh_config" ];
+    # Host entries for my own machines live in an agenix secret (declared in
+    # system/security.nix) so that this public repo doesn't describe the network.
+    includes = [ osConfig.age.secrets.ssh_config.path ];
     settings = {
       "*" = {
         ServerAliveInterval = 30;
