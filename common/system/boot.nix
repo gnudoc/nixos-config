@@ -22,14 +22,4 @@
   # Closing the lid suspends; after 5min asleep the machine hibernates.
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
   systemd.sleep.settings.Sleep.HibernateDelaySec = "5m";
-
-  # FIXME: re-test, then delete. Added in July 2026 while chasing resume freezes,
-  # before galvorn existed. systemd advises against it for exactly the
-  # suspend-then-hibernate setup above, and nothing shows galvorn needs it.
-  systemd.services = {
-    systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
-    systemd-hibernate.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
-    systemd-hybrid-sleep.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
-    systemd-suspend-then-hibernate.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
-  };
 }
