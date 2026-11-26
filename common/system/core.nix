@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -10,6 +10,17 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  # Every host keeps /, /home and /nix as subvolumes of one btrfs filesystem.
+  # hardware-configuration.nix supplies the device and subvol= for each mount;
+  # list options from different modules are concatenated, so the following
+  # are added to that without touching the generated file.
+  fileSystems = lib.genAttrs [ "/" "/home" "/nix" ] (_: {
+    options = [
+      "compress=zstd"
+      "noatime"
+    ];
+  });
 
   services.btrfs.autoScrub = {
     enable = true;

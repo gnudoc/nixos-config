@@ -27,12 +27,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/8b5c7d2f-75d0-46b7-b6ea-8fa8619d5fa3";
     fsType = "btrfs";
-    options = [
-      "subvol=@"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
+    options = [ "subvol=@" ];
   };
 
   fileSystems."/mnt/internal-ssd" = {
@@ -43,23 +38,13 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/8b5c7d2f-75d0-46b7-b6ea-8fa8619d5fa3";
     fsType = "btrfs";
-    options = [
-      "subvol=@home"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
+    options = [ "subvol=@home" ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/8b5c7d2f-75d0-46b7-b6ea-8fa8619d5fa3";
     fsType = "btrfs";
-    options = [
-      "subvol=@nix"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
+    options = [ "subvol=@nix" ];
   };
 
   fileSystems."/boot" = {
