@@ -58,7 +58,7 @@ in
     checkConfig = false;
     config = {
       modifier = mod;
-      bars = [ ]; # disable sway's bar
+      bars = [ ]; # disable sway's bar, allowing for waybar from waybar.nix
       fonts = {
         names = [ "Noto Sans" ];
         size = 10.0;
@@ -129,6 +129,7 @@ in
           childBorder = "#${c.cyan}";
         };
       };
+      # mkOptionDefault: *add to* (don't replace) home-manager's default bindings
       keybindings = lib.mkOptionDefault {
         "${mod}+Escape" = "exec ${lock}";
         "${mod}+b" = "exec chromium";

@@ -1,5 +1,6 @@
+# Everything every host has in common ot the NixOS level.
+# The Home Manager half of the configurationn starts at ../home.nix
 { inputs, ... }:
-
 {
   imports = [
     inputs.agenix.nixosModules.default

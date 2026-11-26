@@ -83,11 +83,11 @@
     client.enable = true;
     defaultEditor = true;
   };
-  # inject a custom line into the [Service] line of the home manager derived unit
-  systemd.user.services.emacs.Service = {
-    Environment = [
-      "GDK_BACKEND=wayland"
-      "SSH_AUTH_SOCK=%t/${config.services.ssh-agent.socket}"
-    ];
-  };
+  # Add to the [Service] section of the unit that services.emacs generates.
+  # The daemon is started by systemd rather than from inside the sway session,
+  # so tell it explicitly to use Wayland and where the ssh-agent socket is.
+  systemd.user.services.emacs.Service.Environment = [
+    "GDK_BACKEND=wayland"
+    "SSH_AUTH_SOCK=%t/${config.services.ssh-agent.socket}"
+  ];
 }

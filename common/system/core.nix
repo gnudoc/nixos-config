@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -7,7 +6,7 @@
   console = {
     font = "ter-v18b";
     packages = [ pkgs.terminus_font ];
-    useXkbConfig = true;
+    useXkbConfig = true; # same layout on the tty as in sway
   };
 
   hardware.enableRedistributableFirmware = true;
@@ -39,5 +38,4 @@
     pkgs.btop
     pkgs.acpi
   ];
-
 }

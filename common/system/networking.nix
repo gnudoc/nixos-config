@@ -55,6 +55,6 @@ in
 
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "client";
+    useRoutingFeatures = "client"; # loosens rp_filter, needed to use an exit node
   };
 }

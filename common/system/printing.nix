@@ -1,18 +1,18 @@
 { pkgs, ... }:
 {
-  # 1. Enable CUPS and load HPLIP with the proprietary binary plugin
+  # CUPS, with HPLIP and its proprietary plugin (this printer needs the plugin)
   services.printing = {
     enable = true;
     drivers = [ pkgs.hplipWithPlugin ];
   };
 
-  # 2. Enable Avahi/mDNS (required for P1102w over Wi-Fi)
+  # mDNS, so the printer can be found on the network
   services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
   };
 
-  # 3. Expose hp-setup and hp-testpage in our terminal PATH
+  # hp-setup and hp-testpage on PATH
   environment.systemPackages = [ pkgs.hplipWithPlugin ];
 }

@@ -1,10 +1,12 @@
+# agenix: which key decrypts, and the secrets the user's own programs read.
+# Secrets used by a single module are declared in the module instead
+# (wifi in networking.nix, the backup key in backup.nix).
 {
   config,
   inputs,
   pkgs,
   ...
 }:
-
 {
   # agenix decrypts with the machine's ssh host key. The laptops don't run
   # sshd, so ask for the host keys to be generated anyway, and name the key
@@ -17,6 +19,9 @@
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
+  # owner = the user, because these are read by the user's programs:
+  #   authinfo   - Emacs auth-source
+  #   ssh_config - Included from ~/.ssh/config (common/security/ssh.nix)
   age.secrets = {
     authinfo = {
       file = ../../secrets/authinfo.age;

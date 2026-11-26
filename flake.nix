@@ -1,9 +1,14 @@
 {
-  description = "Unified flake for sure and galvorn";
+  description = "NixOS and Home Manager config for sure and galvorn";
+
   inputs = {
+    # Rolling release. To move to a stable release, change this to nixos-YY.MM
+    # and home-manager below to the matching release-YY.MM (the two must always
+    # change together), then run `nix flake update`.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # `follows` makes each input build against the above nixpkgs instead
-    # of locking its own separate version
+
+    # `follows` makes each input build against the above nixpkgs instead of
+    # locking its own separate version
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

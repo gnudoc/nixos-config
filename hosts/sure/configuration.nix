@@ -1,5 +1,5 @@
+# sure: Intel/Nvidia hybrid laptop, PRIME offloading
 { config, inputs, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -14,7 +14,8 @@
   # this machine's host key in secrets/secrets.nix
   # my.backup.enable = true;
 
-  # Declaratively ensure the mount point exists with the correct ownership
+  # hardware-configuration.nix mounts the second SSD here; this hands the root
+  # of that filesystem to the user.
   systemd.tmpfiles.rules = [
     "d /mnt/internal-ssd 0755 ${config.my.user} users -"
   ];
@@ -34,5 +35,4 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
-
 }
