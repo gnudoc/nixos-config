@@ -19,28 +19,34 @@ The environment is designed around a keyboard-driven Wayland workflow:
 * **Theming**: Tokyo Night colour palette
 
 ## Repository Structure
-* `flake.nix`: defines system inputs and maps host configs
-* `hosts/`: Machine-specific configs, hardware layouts, and kernel module loading
-* `common/`: Shared modules mapped across the systems
+* `flake.nix`: the inputs, and one NixOS system per directory under `hosts/`
+* `hosts/<name>`: what is specific to one machine: hardware, state version, per-host services
+* `common/system/`: NixOS modules shared by every host (boot, networking, users, backup, Nix settings)
+* `common/home.nix`: root of the Home Manager config, which is the rest of `common/`:
   * `apps/`: Major user-space applications (Emacs, browsers, terminal)
-  * `cli/`: Shell environments, git, my scripts, and command-line utilities
+  * `cli/`: Shell environments, git, and command-line utilities
   * `desktop/`: Sway, Waybar, GTK settings, Rofi, mako (notifications), wpaperd
-  * `system/`: Core system functionality (bootloader, networking, security, Nix GC)
   * `security/`: GPG and SSH config
 * `secrets/`: Age-encrypted secrets (Wifi, eduroam, SSH, authinfo)
+
+Values that more than one module needs are declared as options rather than passed around as function arguments: `my.user` (`common/system/users.nix`) and `my.backup.*` (`common/system/backup.nix`). Home Manager modules read NixOS options through `osConfig`.
+
+`nix fmt` formats the whole repo.
 
 ## Secrets & Local Config
 
 I'm using `agenix` for secrets such as wifi credentials, my .authinfo file, SSH config.
 Adding or editing secrets involves:
 * add a rule to `secrets/secrets.nix` eg "top_secret.age".publicKeys = [key1 key2];
-* `nix run github:ryantm/agenix -- -e top_secret.age` - paste the config file to be secret-ised
-* add something to configuration.nix eg `age.secrets.top_secret.file = ../../secrets/top_secret.age`
-* ensure the bit of home manager config that would've configured the top_secret.conf now has `includes = ["/run/agenix/top_secret"]`
+* `cd secrets && agenix -e top_secret.age` - paste the config file to be secret-ised
+* declare it in the module that uses it eg `age.secrets.top_secret.file = ../../secrets/top_secret.age`
+* refer to the decrypted file by option, never by typing `/run/agenix/...`: `config.age.secrets.top_secret.path` in a NixOS module, `osConfig.age.secrets.top_secret.path` in a Home Manager one
 * done
+
+A new machine needs its host key (`/etc/ssh/ssh_host_ed25519_key.pub`) added to `secrets/secrets.nix`, followed by `agenix --rekey`, before it can decrypt anything.
 
 ## Backups & Storage
 
-The systems utilize `btrfs` with subvolumes `@`, `@home`, `@nix`. Most of $HOME and specifically defined critical configs are automatically sync'd to a server via `rsync` using a systemd timer.
+The systems utilize `btrfs` with subvolumes `@`, `@home`, `@nix`. Most of $HOME and specifically defined critical configs are automatically sync'd to a server via `rsync` using a systemd timer, on hosts that set `my.backup.enable = true`.
 
 I wonder whether I should be using disko to declare the disk partitions and subvolumes?
