@@ -39,11 +39,11 @@ in
     events.before-sleep = lock;
     timeouts = [
       {
-        timeout = 300;
+        timeout = 600;
         command = lock;
       }
       {
-        timeout = 330;
+        timeout = 630;
         command = "${swaymsg} 'output * power off'";
         resumeCommand = "${swaymsg} 'output * power on'";
       }
