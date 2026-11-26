@@ -21,5 +21,5 @@
 
   # Closing the lid suspends; after 5min asleep the machine hibernates.
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
-  systemd.sleep.settings.Sleep.HibernateDelaySec = "5m";
+  systemd.sleep.settings.Sleep.HibernateDelaySec = "10m";
 }
