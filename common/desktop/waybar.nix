@@ -82,8 +82,33 @@ in
           max-length = 40;
           icon = false;
         };
+        # see https://man.archlinux.org/man/extra/waybar/waybar-clock.5.en for some examples
         clock = {
-          format = "{:%H:%M}";
+          format = "{:%H:%M}  ";
+          format-alt = "{:%A, %B %d, %Y (%R)} 󰃰 ";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "year";
+            mode-mon-cl = 3;
+            weeks-pos = "right";
+            first-day-of-week = 1;
+            on-scroll = 1;
+            on-click-right = "mode";
+            format = {
+              months = "<span color='#ffead3'><b>{}</b></span>";
+              days = "<span color='#ecc6d9'><b>{}</b></span>";
+              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
+              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+          "actions" = {
+            "on-click-right" = "mode";
+            "on-click-forward" = "tz_up";
+            "on-click-backward" = "tz_down";
+            "on-scroll-up" = "shift_up";
+            "on-scroll-down" = "shift_down";
+          };
         };
         "custom/backup" = {
           exec = lib.getExe backupStatus;
