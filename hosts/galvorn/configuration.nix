@@ -5,6 +5,13 @@
   lib,
   ...
 }:
+let
+  tailscaleFlags = [
+    "--exit-node=100.84.16.46"
+    "--exit-node-allow-lan-access=true"
+    "--operator=${config.my.user}"
+  ];
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -29,11 +36,10 @@
 
   services.tailscale = {
     authKeyFile = config.age.secrets.tailscale.path;
-    extraUpFlags = [
-      "--exit-node=100.84.16.46"
-      "--exit-node-allow-lan-access=true"
-      "--operator=${config.my.user}"
-    ];
+    # extraUpFlags are only used when the machine (re)authenticates;
+    # extraSetFlags are applied every time tailscaled starts.
+    extraUpFlags = tailscaleFlags;
+    extraSetFlags = tailscaleFlags;
   };
 
   # This lets libinput know that the laptop keyboard is internal, not external,
