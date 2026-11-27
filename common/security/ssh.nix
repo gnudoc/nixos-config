@@ -3,7 +3,7 @@
 {
   home.packages = [ pkgs.cloudflared ];
 
-  # Create ~/.ssh/sockets dir for ssh-nas-tunnel
+  # Create ~/.ssh/sockets dir for girion
   systemd.user.tmpfiles.rules = [
     "d %h/.ssh/sockets 0700 - - - -"
   ];

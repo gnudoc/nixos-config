@@ -15,8 +15,8 @@
     shellAliases = {
       bat = "acpi -V";
       btc = "bluetoothctl";
-      # ssh-nas-tunnel is a Host in the ssh config
-      proxsh = "ssh -D 1080 ssh-nas-tunnel";
+      # girion is a Host in the ssh config
+      proxsh = "ssh -D 1080 girion";
       ls = "ls --color=auto -F";
       ll = "ls -lh --color=auto -F";
       la = "ls -lah --color=auto -F";
