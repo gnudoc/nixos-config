@@ -39,12 +39,26 @@ let
       # in the state dir and rsync'd along with $home. Previously was being
       # cp'd into the local home, so any user priv'd process could see it - bad.
       archive=/var/lib/${stateDir}/secure-configs.tar.gz
-      echo "Archiving system security paths..."
-      # tar exits non-zero if a path is missing or a file changes while it is
-      # being read; neither should stop the home directory being backed up.
-      umask 077 # better than chown/chmod after creation
-      tar -czPf "$archive" /var/lib/bluetooth \
-        /etc/NetworkManager/system-connections /etc/ssh || true
+
+      # define and check for the system paths, so that tar's exit status is useful
+      paths=()
+      for p in /var/lib/bluetooth /etc/NetworkManager/system-connections /etc/ssh; do
+        if [ -e "$p" ]; then paths+=("$p"); fi
+      done
+
+      echo "making temp copy of system paths..."
+      tmp=$(mktemp "$archive.XXXXXX")
+      trap 'rm -f "$tmp"' EXIT # delete the tempfile when the script exits
+      status=0
+      tar -czPf "$tmp" "''${paths[@]}" || status=$?
+      if [ "$status" -le 1 ]; then
+        echo "Archiving system paths..."
+        mv "$tmp" "$archive"
+      else
+        echo "tar failed with status $status; keeping the previous archive" >&2
+      fi
+
+
       # The server's authorized_keys pin this entry to `rrsync`, rooted at
       # `/mnt/main-pool/${hostname}-backup/home/. The ":/" destination is 
       # therefore that directory, not the server's real root.
