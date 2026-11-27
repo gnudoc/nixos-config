@@ -35,24 +35,23 @@ let
     # writeShellApplication already runs the script under `set -euo pipefail`
     # and shellchecks it at build time.
     text = ''
-      # Root-only system state that should survive a reinstall. It goes into
-      # the user's home so that the rsync below picks it up.
-      archive=${home}/.config/laptop-backup/secure-configs.tar.gz
-      install -d -o ${user} -g users "$(dirname "$archive")"
+      # Root-only system state that should survive a reinstall. It gets tar'd
+      # in the state dir and rsync'd along with $home. Previously was being
+      # cp'd into the local home, so any user priv'd process could see it - bad.
+      archive=/var/lib/${stateDir}/secure-configs.tar.gz
       echo "Archiving system security paths..."
       # tar exits non-zero if a path is missing or a file changes while it is
       # being read; neither should stop the home directory being backed up.
+      umask 077 # better than chown/chmod after creation
       tar -czPf "$archive" /var/lib/bluetooth \
         /etc/NetworkManager/system-connections /etc/ssh || true
-      chown ${user}:users "$archive"
-      chmod 600 "$archive"
       # The server's authorized_keys pin this entry to `rrsync`, rooted at
       # `/mnt/main-pool/${hostname}-backup/home/. The ":/" destination is 
       # therefore that directory, not the server's real root.
       echo "Syncing ${home} to ${cfg.host}...";
       rsync -a --partial --delete --info=stats1 --exclude-from="${excludes}" \
         -e "ssh -l ${hostname}_backup -i ${config.age.secrets.laptop_backup_key.path} -o IdentitiesOnly=yes" \
-        "${home}/" "${cfg.host}:/"
+        "$archive" "${home}/" "${cfg.host}:/"
       touch ${cfg.markerFile}
     '';
   };
